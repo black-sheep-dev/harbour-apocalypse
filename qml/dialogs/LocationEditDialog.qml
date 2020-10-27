@@ -60,7 +60,7 @@ Dialog {
 //                bottom: -90.0
 //                top: 90.0
 //                decimals: 6
-//                locale: Qt.locale().name
+//                locale: Qt.locale("de_DE").name
 //            }
 
             text: latitude
@@ -80,7 +80,7 @@ Dialog {
 //                bottom: -180.0
 //                top: 180.0
 //                decimals: 6
-//                locale: Qt.locale().name
+//                locale: Qt.locale("de_DE")
 //            }
 
             text: longitude
@@ -90,11 +90,11 @@ Dialog {
         }
     }
 
-    Component.onCompleted: checkInput()
-
     onDone: {
         name = nameField.text
-        latitude = latitudeField.text
-        longitude = longitudeField.text
+
+        var locale = Qt.locale("de_DE")
+        latitude = Number.fromLocaleString(locale, latitudeField.text)
+        longitude = Number.fromLocaleString(locale, longitudeField.text)
     }
 }
