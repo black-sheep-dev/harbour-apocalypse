@@ -1,0 +1,22 @@
+[
+{
+    "id": "de.bund.warnung.bkk.katwarn.warnmeldungen",
+    "name": "KATWARN",
+    "url": "https://warnung.bund.de/bbk.katwarn/warnmeldungen.json"
+},
+{
+    "id": "de.bund.warnung.bkk.biwapp.warnmeldungen",
+    "name": "BIWAPP",
+    "url": "https://warnung.bund.de/bbk.biwapp/warnmeldungen.json"
+},
+{
+    "id": "de.bund.warnung.bkk.dwd.unwetter",
+    "name": "DWD Unwetter",
+    "url": "https://warnung.bund.de/bbk.dwd/unwetter.json"
+},
+{
+    "id": "de.bund.warnung.bkk.mowas.gefahrendurchsagen",
+    "name": "MOWAS Gefahrendurchsagen",
+    "url": "https://warnung.bund.de/bbk.mowas/gefahrendurchsagen.json"
+}
+]

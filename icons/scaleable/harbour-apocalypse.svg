@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg17" width="86px" height="86px" enable-background="new 0 0 86 86" version="1.1" viewBox="0 0 86 86" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><metadata id="metadata23"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/><dc:title/></cc:Work></rdf:RDF></metadata><defs id="defs21">
+	<linearGradient id="SVGID_1_" x1="12.806" x2="73.193" y1="73.194" y2="12.807" gradientUnits="userSpaceOnUse">
+		<stop id="stop3" stop-color="#ffd600" offset="0"/>
+		<stop id="stop5" stop-color="#ff0" offset="1"/>
+	</linearGradient>
+	
+	
+	
+</defs>
+
+<circle id="circle8" cx="43" cy="43" r="42.7" fill="url(#SVGID_1_)"/>
+<circle id="path873" cx="43" cy="43" r="6" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/><path id="path875" d="m64 43a21 21 0 0 1-10.5 18.187" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="22"/><path id="path881" d="m32.5 61.187a21 21 0 0 1-10.5-18.187" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="22"/><path id="path883" d="m32.5 24.813a21 21 0 0 1 21 1e-6" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="22"/></svg>
