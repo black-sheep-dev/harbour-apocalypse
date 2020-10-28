@@ -3,7 +3,39 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.apocalypse 1.0
 
+import "../tools/"
+
 CoverBackground {
+    Helper { id: helper }
+
+    Rectangle {
+        id: background
+        anchors.fill: parent;
+
+        opacity: ServiceProvider.localSeverity === Message.SeverityUndefined ? 0.0 : 0.6
+
+        color: helper.getSeverityColor(ServiceProvider.localSeverity)
+    }
+
+    Image {
+        visible: ServiceProvider.localSeverity !== Message.SeverityUndefined
+
+        id: icon
+        anchors.centerIn: background
+
+        opacity: 0.1
+
+        smooth: true
+
+        width: parent.width * 0.75
+        height: width
+
+        sourceSize.width: 256
+        sourceSize.height: 256
+
+        source: helper.getCategoryIcon(ServiceProvider.localMainCategories)
+    }
+
     Label {
         id: coverTitle
 
@@ -50,9 +82,19 @@ CoverBackground {
 
                 Image {
                     id: itemIcon
-                    source: "image://theme/icon-m-media-radio"
+
+                    smooth: true
+                    opacity: 0.4
+
+                    width: Theme.itemSizeExtraSmall * 0.5
+                    height: width
 
                     anchors.verticalCenter: parent.verticalCenter
+
+                    sourceSize.width: 256
+                    sourceSize.height: 256
+
+                    source: helper.getCategoryIcon(categories)
                 }
 
                 Item {

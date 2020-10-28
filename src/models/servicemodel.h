@@ -22,6 +22,7 @@ public:
 
     Q_INVOKABLE void addService(Service *service);
     Q_INVOKABLE Service *serviceAt(int index);
+    Q_INVOKABLE Service *serviceById(const QString &id);
     Q_INVOKABLE QList<Service *> services() const;
     void setServices(const QList<Service *> &services);
 

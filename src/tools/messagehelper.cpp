@@ -131,7 +131,6 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 
     msg->setSenderName(senderName);
 
-
     // areas
     const QJsonArray areas = info.value(QStringLiteral("area")).toArray();
     for (const QJsonValue &area : areas) {

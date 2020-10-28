@@ -19,13 +19,35 @@ Page {
             id: delegate
 
             Label {
+                id: nameLabel
+
                 x: Theme.horizontalPageMargin
+                width: parent.width - 2*x - selectedIcon.width
+
                 text: name
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
-            onClicked: console.log("Clicked " + index)
+
+            Image {
+                id: selectedIcon
+                anchors.left: nameLabel.right
+
+                visible: active
+
+                source: "image://theme/icon-m-acknowledge"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            onClicked: active = !active
         }
         VerticalScrollDecorator {}
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Deactivating) {
+            ServiceProvider.saveSettings()
+            ServiceProvider.refresh()
+        }
     }
 }

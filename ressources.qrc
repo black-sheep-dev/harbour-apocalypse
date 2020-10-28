@@ -2,6 +2,12 @@
     <qresource prefix="/icons">
         <file alias="git">icons/github.svg</file>
         <file alias="paypal">icons/paypal.svg</file>
+        <file alias="category-security">icons/category-security.svg</file>
+        <file alias="category-safety">icons/category-safety.svg</file>
+        <file alias="category-meteorology">icons/category-meteorology.svg</file>
+        <file alias="category-info">icons/category-info.svg</file>
+        <file alias="category-health">icons/category-health.svg</file>
+        <file alias="category-fire">icons/category-fire.svg</file>
     </qresource>
     <qresource prefix="/content">
         <file alias="services.json">content/services.json</file>

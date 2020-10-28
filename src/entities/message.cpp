@@ -51,7 +51,7 @@ bool Message::local() const
     return m_local;
 }
 
-Message::MessageType Message::messageType() const
+quint8 Message::messageType() const
 {
     return m_messageType;
 }
@@ -66,12 +66,12 @@ QDateTime Message::sent() const
     return m_sent;
 }
 
-Message::Severity Message::severity() const
+quint8 Message::severity() const
 {
     return m_severity;
 }
 
-Message::Urgency Message::urgency() const
+quint8 Message::urgency() const
 {
     return m_urgency;
 }
@@ -79,6 +79,16 @@ Message::Urgency Message::urgency() const
 QString Message::web() const
 {
     return m_web;
+}
+
+bool Message::fromLocalStorage() const
+{
+    return m_fromLocalStorage;
+}
+
+QDateTime Message::notified() const
+{
+    return m_notified;
 }
 
 void Message::setCategories(quint32 categories)
@@ -162,7 +172,7 @@ void Message::setLocal(bool local)
     emit localChanged(m_local);
 }
 
-void Message::setMessageType(Message::MessageType messageType)
+void Message::setMessageType(quint8 messageType)
 {
     if (m_messageType == messageType)
         return;
@@ -189,7 +199,7 @@ void Message::setSent(const QDateTime &sent)
     emit sentChanged(m_sent);
 }
 
-void Message::setSeverity(Message::Severity severity)
+void Message::setSeverity(quint8 severity)
 {
     if (m_severity == severity)
         return;
@@ -198,7 +208,7 @@ void Message::setSeverity(Message::Severity severity)
     emit severityChanged(m_severity);
 }
 
-void Message::setUrgency(Message::Urgency urgency)
+void Message::setUrgency(quint8 urgency)
 {
     if (m_urgency == urgency)
         return;
@@ -214,4 +224,22 @@ void Message::setWeb(const QString &web)
 
     m_web = web;
     emit webChanged(m_web);
+}
+
+void Message::setFromLocalStorage(bool fromLocalStorage)
+{
+    if (m_fromLocalStorage == fromLocalStorage)
+        return;
+
+    m_fromLocalStorage = fromLocalStorage;
+    emit fromLocalStorageChanged(m_fromLocalStorage);
+}
+
+void Message::setNotified(const QDateTime &notified)
+{
+    if (m_notified == notified)
+        return;
+
+    m_notified = notified;
+    emit notifiedChanged(m_notified);
 }

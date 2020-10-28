@@ -18,12 +18,12 @@ Here is a list of all implemented features so far.
 - Read messages from DWD, MOWAS, BIWAPP, KATWARN
 - Add and manage different locations
 - Location dependent messages
+- Activate/Deactivate service
 
 ## Planned Features
 
 - Notifications (no real push notofication!)
 - Automatic refreshs
-- Activate/Deactivate service
 - More Services
 - Map View
 - Feature request

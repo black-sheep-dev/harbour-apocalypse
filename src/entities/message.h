@@ -9,6 +9,7 @@ class Message : public QObject
 {
     Q_OBJECT
 
+    // data properties
     Q_PROPERTY(quint32 categories READ categories WRITE setCategories NOTIFY categoriesChanged)
     Q_PROPERTY(QString contact READ contact WRITE setContact NOTIFY contactChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
@@ -18,12 +19,16 @@ class Message : public QObject
     Q_PROPERTY(QString identifier READ identifier WRITE setIdentifier NOTIFY identifierChanged)
     Q_PROPERTY(QString instruction READ instruction WRITE setInstruction NOTIFY instructionChanged)
     Q_PROPERTY(bool local READ local WRITE setLocal NOTIFY localChanged)
-    Q_PROPERTY(MessageType messageType READ messageType WRITE setMessageType NOTIFY messageTypeChanged)
+    Q_PROPERTY(quint8 messageType READ messageType WRITE setMessageType NOTIFY messageTypeChanged)
     Q_PROPERTY(QString senderName READ senderName WRITE setSenderName NOTIFY senderNameChanged)
     Q_PROPERTY(QDateTime sent READ sent WRITE setSent NOTIFY sentChanged)
-    Q_PROPERTY(Severity severity READ severity WRITE setSeverity NOTIFY severityChanged)
-    Q_PROPERTY(Urgency urgency READ urgency WRITE setUrgency NOTIFY urgencyChanged)
+    Q_PROPERTY(quint8 severity READ severity WRITE setSeverity NOTIFY severityChanged)
+    Q_PROPERTY(quint8 urgency READ urgency WRITE setUrgency NOTIFY urgencyChanged)
     Q_PROPERTY(QString web READ web WRITE setWeb NOTIFY webChanged)
+
+    // functional properties
+    Q_PROPERTY(bool fromLocalStorage READ fromLocalStorage WRITE setFromLocalStorage NOTIFY fromLocalStorageChanged)
+    Q_PROPERTY(QDateTime notified READ notified WRITE setNotified NOTIFY notifiedChanged)
 
 public:
     enum Category {
@@ -67,7 +72,7 @@ public:
 
     explicit Message(QObject *parent = nullptr);
 
-    // properties
+    // data properties
     quint32 categories() const;
     QString contact() const;
     QString description() const;
@@ -77,15 +82,19 @@ public:
     QString identifier() const;
     QString instruction() const;
     bool local() const;
-    MessageType messageType() const;
+    quint8 messageType() const;
     QString senderName() const;
     QDateTime sent() const;
-    Severity severity() const;
-    Urgency urgency() const;
+    quint8 severity() const;
+    quint8 urgency() const;
     QString web() const;
 
+    // functional properties
+    bool fromLocalStorage() const;
+    QDateTime notified() const;
+
 signals:
-    // properties
+    // data properties
     void categoriesChanged(quint32 categories);
     void contactChanged(const QString &contact);
     void descriptionChanged(const QString &description);
@@ -95,15 +104,19 @@ signals:
     void identifierChanged(const QString &identifier);
     void instructionChanged(const QString &instruction);
     void localChanged(bool local);
-    void messageTypeChanged(Message::MessageType messageType);
+    void messageTypeChanged(quint8 messageType);
     void senderNameChanged(const QString &senderName);
     void sentChanged(const QDateTime &sent);
-    void severityChanged(Message::Severity severity);
-    void urgencyChanged(Message::Urgency urgency);
+    void severityChanged(quint8 severity);
+    void urgencyChanged(quint8 urgency);
     void webChanged(const QString &web);
 
+    // functional properties
+    void fromLocalStorageChanged(bool fromLocalStorage);
+    void notifiedChanged(const QDateTime &notified);
+
 public slots:
-    // properties
+    // data properties
     void setCategories(quint32 categories);
     void setContact(const QString &contact);
     void setDescription(const QString &description);
@@ -113,15 +126,19 @@ public slots:
     void setIdentifier(const QString &identifier);
     void setInstruction(const QString &instruction);
     void setLocal(bool local);
-    void setMessageType(Message::MessageType messageType);
+    void setMessageType(quint8 messageType);
     void setSenderName(const QString &senderName);
     void setSent(const QDateTime &sent);
-    void setSeverity(Message::Severity severity);
-    void setUrgency(Message::Urgency urgency);
+    void setSeverity(quint8 severity);
+    void setUrgency(quint8 urgency);
     void setWeb(const QString &web);
 
+    // functional properties
+    void setFromLocalStorage(bool fromLocalStorage);
+    void setNotified(const QDateTime &notified);
+
 private:
-    // properties
+    // data properties
     quint32 m_categories{Category::CategoryNone};
     QString m_contact;
     QString m_description;
@@ -131,12 +148,17 @@ private:
     QString m_identifier;
     QString m_instruction;
     bool m_local{false};
-    MessageType m_messageType{MessageType::Unkown};
+    quint8 m_messageType{MessageType::Unkown};
     QString m_senderName;
     QDateTime m_sent;
-    Severity m_severity{Severity::SeverityUndefined};
-    Urgency m_urgency{Urgency::UrgencyUnkown};
+    quint8 m_severity{Severity::SeverityUndefined};
+    quint8 m_urgency{Urgency::UrgencyUnkown};
     QString m_web;
+
+    // functional properties
+    bool m_fromLocalStorage{false};
+    QDateTime m_notified{QDateTime()};
+
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Message::Categories)
 

@@ -18,6 +18,8 @@ class ServiceProvider : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
+    Q_PROPERTY(quint32 localMainCategories READ localMainCategories WRITE setLocalMainCategories NOTIFY localMainCategoriesChanged)
+    Q_PROPERTY(quint8 localSeverity READ localSeverity WRITE setLocalSeverity NOTIFY localSeverityChanged)
 
 public:
     explicit ServiceProvider(QObject *parent = nullptr);
@@ -30,17 +32,23 @@ public:
     Q_INVOKABLE ServiceModel *serviceModel();
 
     // properties
-    bool loading() const;
+    bool loading() const; 
+    quint32 localMainCategories() const;
+    quint8 localSeverity() const;
 
 public slots:
     Q_INVOKABLE void refresh();
 
     // properties
     void setLoading(bool loading);
+    void setLocalMainCategories(quint32 categories);
+    void setLocalSeverity(quint8 severity);
 
 signals:
     // properties
     void loadingChanged(bool loading);
+    void localMainCategoriesChanged(quint32 categories);
+    void localSeverityChanged(quint8 severity);
 
 private slots:
     void onRequestFinished(QNetworkReply *reply);
@@ -50,6 +58,10 @@ private:
     QByteArray gunzip(const QByteArray &data);
 
     void readServices();
+
+    void readMessages();
+    void writeMessages();
+
     void readSettings();
     void writeSettings();
 
@@ -63,6 +75,8 @@ private:
 
     // properties
     bool m_loading{false};
+    quint32 m_localMainCategories{Message::CategoryNone};
+    quint8 m_localSeverity{Message::SeverityUndefined};
 };
 
 #endif // SERVICEPROVIDER_H

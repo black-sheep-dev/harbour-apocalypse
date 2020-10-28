@@ -29,6 +29,16 @@ Service *ServiceModel::serviceAt(int index)
     return m_services.at(index);
 }
 
+Service *ServiceModel::serviceById(const QString &id)
+{
+    for (auto *service : m_services) {
+        if (service->id() == id)
+            return service;
+    }
+
+    return nullptr;
+}
+
 QList<Service *> ServiceModel::services() const
 {
     return m_services;

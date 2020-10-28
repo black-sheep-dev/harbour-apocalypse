@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.1
+VERSION = 0.1.3
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -43,6 +43,7 @@ DISTFILES += qml/harbour-apocalypse.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/ServiceListPage.qml \
     qml/pages/SettingsPage.qml \
+    qml/tools/Helper.qml \
     rpm/harbour-apocalypse.changes \
     rpm/harbour-apocalypse.changes.run.in \
     rpm/harbour-apocalypse.spec \

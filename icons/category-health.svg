@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="256"
+   height="256"
+   viewBox="0 0 256 256"
+   enable-background="new 0 0 86 86"
+   xml:space="preserve"
+   id="svg17"
+   sodipodi:docname="category-health.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
+   id="metadata23"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs21">
+	<linearGradient
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="12.8064"
+   y1="73.193703"
+   x2="73.193398"
+   y2="12.8067">
+		<stop
+   offset="0"
+   style="stop-color:#ffd600;stop-opacity:1"
+   id="stop3" />
+		<stop
+   offset="1"
+   style="stop-color:#ffff00;stop-opacity:1"
+   id="stop5" />
+	</linearGradient>
+	
+	
+	
+</defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1015"
+   id="namedview19"
+   showgrid="true"
+   inkscape:zoom="2.0784884"
+   inkscape:cx="138.84374"
+   inkscape:cy="187.38223"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg17"
+   inkscape:document-rotation="0"><inkscape:grid
+     type="xygrid"
+     id="grid849" /></sodipodi:namedview>
+<g
+   id="Layer_2"
+   display="none">
+</g>
+
+<path
+   id="path2"
+   style="fill:#ffffff;stroke-width:0.999997"
+   d="M 72.800781 25.142578 C 37.143633 25.142578 8 53.770585 8 89.427734 C 8 100.05763 10.610872 110.11677 15.193359 119 L 70.9375 119 L 89.429688 72.771484 A 6.0006 6.0006 0 0 1 94.871094 69.001953 A 6.0006 6.0006 0 0 1 100.85742 73.699219 L 116.64453 144.73633 L 129.42969 112.77148 A 6.0006 6.0006 0 0 1 139.99219 111.67188 L 143.41406 116.80469 L 159.36133 72.949219 A 6.0006 6.0006 0 0 1 170.74609 73.275391 L 184.46484 119 L 240.80664 119 C 245.38913 110.11677 248 100.05763 248 89.427734 C 248 53.770585 218.85637 25.142578 183.19922 25.142578 C 159.71351 25.142578 139.31429 37.486161 128 56.171875 C 116.68571 37.486161 96.286494 25.142578 72.800781 25.142578 z M 164.45312 94.058594 L 150.63867 132.05078 A 6.0006 6.0006 0 0 1 140.00781 133.32812 L 136.33398 127.81836 L 120.57031 167.22852 A 6.0006 6.0006 0 0 1 109.14258 166.30078 L 93.355469 95.263672 L 80.570312 127.22852 A 6.0006 6.0006 0 0 1 75 131 L 23.179688 131 C 24.816211 132.95441 26.551239 134.82444 28.400391 136.57227 L 126.45703 230.85742 L 227.59961 136.57227 C 229.44876 134.82444 231.18379 132.95441 232.82031 131 L 180 131 A 6.0006 6.0006 0 0 1 174.25391 126.72461 L 164.45312 94.058594 z " /></svg>

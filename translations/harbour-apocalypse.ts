@@ -113,15 +113,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter latitude</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Latitude</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -130,6 +122,14 @@
     </message>
     <message>
         <source>Define a location by providing a coordinate with latitude and longitude.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter latitude (e.g. 52.518796)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter longitude (e.g. 13.376241)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

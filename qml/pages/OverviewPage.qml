@@ -1,12 +1,17 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtGraphicalEffects 1.0
 
 import org.nubecula.harbour.apocalypse 1.0
+
+import "../tools/"
 
 Page {
     id: page
 
     allowedOrientations: Orientation.All
+
+    Helper { id: helper }
 
     PageBusyIndicator {
         id: busyIndicator
@@ -66,9 +71,27 @@ Page {
 
                 Image {
                     id: itemIcon
-                    source: "image://theme/icon-m-media-radio"
+                    smooth: true
+
+                    opacity: 0.4
+
+                    width: Theme.itemSizeSmall
+                    height: width
 
                     anchors.verticalCenter: parent.verticalCenter
+
+                    sourceSize.width: 256
+                    sourceSize.height: 256
+
+                    source: helper.getCategoryIcon(categories)
+
+                    ColorOverlay {
+                        visible: severity !== Message.SeverityUndefined
+
+                        anchors.fill: parent
+                        source: itemIcon
+                        color: helper.getSeverityColor(severity)
+                    }
                 }
 
                 Item {

@@ -38,7 +38,7 @@ Dialog {
             label: qsTr("Location name")
 
             validator: RegExpValidator {
-                regExp: /^[a-zA-Z0-9_\- ]+$/gm
+                regExp: /^[a-zA-Z0-9ÄÖÜäöü_\- ]+$/gm
             }
 
             focus: !edit
@@ -52,7 +52,7 @@ Dialog {
         TextField {
             id: latitudeField
             width: parent.width
-            placeholderText: qsTr("Enter latitude")
+            placeholderText: qsTr("Enter latitude (e.g. 52.518796)")
             label: qsTr("Latitude")
 
             inputMethodHints: Qt.ImhDigitsOnly
@@ -63,7 +63,7 @@ Dialog {
                 locale: Qt.locale().name
             }
 
-            text: latitude
+            text: edit ? latitude : ""
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: longitudeField.focus = true
@@ -72,7 +72,7 @@ Dialog {
         TextField {
             id: longitudeField
             width: parent.width
-            placeholderText: qsTr("Enter longitude")
+            placeholderText: qsTr("Enter longitude (e.g. 13.376241)")
             label: qsTr("Longitude")
 
             inputMethodHints: Qt.ImhDigitsOnly
@@ -83,7 +83,7 @@ Dialog {
                 locale: Qt.locale().name
             }
 
-            text: longitude
+            text: edit ? longitude : ""
 
             EnterKey.iconSource: "image://theme/icon-m-enter-close"
             EnterKey.onClicked: longitudeField.focus = false
@@ -93,7 +93,7 @@ Dialog {
     onDone: {
         name = nameField.text
 
-        var locale = Qt.locale("de_DE")
+        var locale = Qt.locale()
         latitude = Number.fromLocaleString(locale, latitudeField.text)
         longitude = Number.fromLocaleString(locale, longitudeField.text)
     }

@@ -113,24 +113,24 @@
         <translation>Standortname</translation>
     </message>
     <message>
-        <source>Enter latitude</source>
-        <translation>Längengrad eingeben</translation>
-    </message>
-    <message>
         <source>Latitude</source>
-        <translation>Längengrad</translation>
-    </message>
-    <message>
-        <source>Enter longitude</source>
-        <translation>Breitengrad eingeben</translation>
-    </message>
-    <message>
-        <source>Longitude</source>
         <translation>Breitengrad</translation>
     </message>
     <message>
+        <source>Longitude</source>
+        <translation>Längengrad</translation>
+    </message>
+    <message>
         <source>Define a location by providing a coordinate with latitude and longitude.</source>
-        <translation>Füge einen Standort mit Angabe einer Koordinate mit Längen- und Breitengrad hinzu.</translation>
+        <translation>Füge einen Standort mit Angabe einer Koordinate mit Breiten- und Längengrad hinzu.</translation>
+    </message>
+    <message>
+        <source>Enter latitude (e.g. 52.518796)</source>
+        <translation>Breitengrad eingeben (z.B. 52,518796)</translation>
+    </message>
+    <message>
+        <source>Enter longitude (e.g. 13.376241)</source>
+        <translation>Längengrad eingeben (z.B. 13,376241)</translation>
     </message>
 </context>
 <context>
