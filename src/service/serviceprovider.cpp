@@ -87,8 +87,7 @@ void ServiceProvider::refresh()
 {
     setLoading(true);
 
-    m_messageModel->reset();
-
+    readMessages();
 
     for (const Service *service : m_serviceModel->services()) {
         if (!service->active())
@@ -380,7 +379,7 @@ void ServiceProvider::readMessages()
         msgs.append(msg);
     }
 
-    m_messageModel->addMessages(msgs);
+    m_messageModel->setMessages(msgs);
 
     file.close();
 }

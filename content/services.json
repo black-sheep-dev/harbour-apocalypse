@@ -18,5 +18,10 @@
     "id": "de.bund.warnung.bkk.mowas.gefahrendurchsagen",
     "name": "MOWAS Gefahrendurchsagen",
     "url": "https://warnung.bund.de/bbk.mowas/gefahrendurchsagen.json"
+},
+{
+    "id": "de.bund.warnung.bkk.lhp.hochwassermeldungen",
+    "name": "LHP Hochwassermeldungen",
+    "url": "https://warnung.bund.de/bbk.lhp/hochwassermeldungen.json"
 }
 ]
