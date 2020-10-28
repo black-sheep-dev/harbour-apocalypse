@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
@@ -21,7 +22,15 @@
    id="metadata23"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-   id="defs21">
+   id="defs21"><linearGradient
+   inkscape:collect="always"
+   id="linearGradient909"><stop
+     style="stop-color:#ffffff;stop-opacity:0.60000002"
+     offset="0"
+     id="stop905" /><stop
+     style="stop-color:#ffffff;stop-opacity:0.26666668"
+     offset="1"
+     id="stop907" /></linearGradient>
 	<linearGradient
    id="SVGID_1_"
    gradientUnits="userSpaceOnUse"
@@ -41,7 +50,16 @@
 	
 	
 	
-</defs><sodipodi:namedview
+<radialGradient
+   inkscape:collect="always"
+   xlink:href="#linearGradient909"
+   id="radialGradient911"
+   cx="43"
+   cy="43"
+   fx="43"
+   fy="43"
+   r="32"
+   gradientUnits="userSpaceOnUse" /></defs><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -54,13 +72,14 @@
    inkscape:window-height="1015"
    id="namedview19"
    showgrid="false"
-   inkscape:zoom="5.8788529"
-   inkscape:cx="46.143255"
-   inkscape:cy="39.994477"
+   inkscape:zoom="4.1569767"
+   inkscape:cx="145.82132"
+   inkscape:cy="-11.000893"
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
-   inkscape:current-layer="svg17" />
+   inkscape:current-layer="svg17"
+   inkscape:document-rotation="0" />
 <g
    id="Layer_2"
    display="none">
@@ -73,6 +92,12 @@
    id="circle8"
    style="fill:url(#SVGID_1_)" />
 <circle
+   fill="url(#SVGID_1_)"
+   cx="43"
+   cy="43"
+   r="32"
+   id="circle885"
+   style="fill:url(#radialGradient911);stroke-width:1" /><circle
    style="opacity:1;fill:#000000;fill-opacity:1;stroke-width:7.99999;stroke-linecap:round;stroke-linejoin:round"
    id="path873"
    cx="43"
