@@ -105,10 +105,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Define a location by providing a coordiante with latitude and longitude.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enter location name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -130,6 +126,10 @@
     </message>
     <message>
         <source>Longitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Define a location by providing a coordinate with latitude and longitude.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

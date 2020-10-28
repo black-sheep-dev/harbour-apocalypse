@@ -105,10 +105,6 @@
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <source>Define a location by providing a coordiante with latitude and longitude.</source>
-        <translation>Füge einen Standort mit Angabe einer Koordiante mit Längen- und Breitengrad hinzu.</translation>
-    </message>
-    <message>
         <source>Enter location name</source>
         <translation>Standortnamen eingeben</translation>
     </message>
@@ -131,6 +127,10 @@
     <message>
         <source>Longitude</source>
         <translation>Breitengrad</translation>
+    </message>
+    <message>
+        <source>Define a location by providing a coordinate with latitude and longitude.</source>
+        <translation>Füge einen Standort mit Angabe einer Koordinate mit Längen- und Breitengrad hinzu.</translation>
     </message>
 </context>
 <context>

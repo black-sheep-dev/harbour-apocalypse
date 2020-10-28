@@ -28,7 +28,7 @@ Dialog {
 
             color: Theme.highlightColor
 
-            text: qsTr("Define a location by providing a coordiante with latitude and longitude.")
+            text: qsTr("Define a location by providing a coordinate with latitude and longitude.")
         }
 
         TextField {
@@ -56,12 +56,12 @@ Dialog {
             label: qsTr("Latitude")
 
             inputMethodHints: Qt.ImhDigitsOnly
-//            validator: DoubleValidator {
-//                bottom: -90.0
-//                top: 90.0
-//                decimals: 6
-//                locale: Qt.locale("de_DE").name
-//            }
+            validator: DoubleValidator {
+                bottom: -90.0
+                top: 90.0
+                decimals: 6
+                locale: Qt.locale().name
+            }
 
             text: latitude
 
@@ -76,12 +76,12 @@ Dialog {
             label: qsTr("Longitude")
 
             inputMethodHints: Qt.ImhDigitsOnly
-//            validator: DoubleValidator {
-//                bottom: -180.0
-//                top: 180.0
-//                decimals: 6
-//                locale: Qt.locale("de_DE")
-//            }
+            validator: DoubleValidator {
+                bottom: -180.0
+                top: 180.0
+                decimals: 6
+                locale: Qt.locale().name
+            }
 
             text: longitude
 
