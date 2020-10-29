@@ -38,7 +38,6 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: ServiceProvider.refresh();
             }
-
         }
 
         id: listView
@@ -83,15 +82,7 @@ Page {
                     sourceSize.width: 256
                     sourceSize.height: 256
 
-                    source: helper.getCategoryIcon(categories)
-
-                    ColorOverlay {
-                        visible: severity !== Message.SeverityUndefined
-
-                        anchors.fill: parent
-                        source: itemIcon
-                        color: helper.getSeverityColor(severity)
-                    }
+                    source: helper.getCategoryIcon(categories, severity)
                 }
 
                 Item {

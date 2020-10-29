@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="256"
+   height="256"
+   viewBox="0 0 256 256"
+   enable-background="new 0 0 86 86"
+   xml:space="preserve"
+   id="svg17"
+   sodipodi:docname="category-meteorology-severe.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
+   id="metadata23"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs21">
+	<linearGradient
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="12.8064"
+   y1="73.193703"
+   x2="73.193398"
+   y2="12.8067">
+		<stop
+   offset="0"
+   style="stop-color:#ffd600;stop-opacity:1"
+   id="stop3" />
+		<stop
+   offset="1"
+   style="stop-color:#ffff00;stop-opacity:1"
+   id="stop5" />
+	</linearGradient>
+	
+	
+	
+</defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1015"
+   id="namedview19"
+   showgrid="true"
+   inkscape:zoom="0.73485662"
+   inkscape:cx="142.29221"
+   inkscape:cy="65.706193"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg17"
+   inkscape:document-rotation="0"><inkscape:grid
+     type="xygrid"
+     id="grid849" /></sodipodi:namedview>
+<g
+   id="Layer_2"
+   display="none">
+</g>
+
+<path
+   id="path865"
+   style="stroke-width:1;fill:#ff3d00"
+   d="m 166,126.41052 -15,45.59606 22.79803,7.5 L 126,248 l 15,-45.59606 -22.79803,-7.5 z M 152,8 A 60,60 0 0 0 97.132812,43.8125 42,42 0 0 0 68,32 42,42 0 0 0 26,74 42,42 0 0 0 29.597656,90.875 54,54 0 0 0 8,134 54,54 0 0 0 59,187.84766 V 188 h 3 54.24609 l 63.36133,-90.794922 -22.20508,67.500002 33.75,11.10351 L 182.64453,188 H 185 v -0.10547 A 66,66 0 0 0 248,122 66,66 0 0 0 211.77734,63.183594 60,60 0 0 0 152,8 Z" /></svg>

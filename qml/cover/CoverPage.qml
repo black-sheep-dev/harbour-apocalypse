@@ -58,7 +58,7 @@ CoverBackground {
         id: listView
 
         anchors.top: spacer.bottom
-        anchors.bottom: coverAction.top
+        anchors.bottom: parent.bottom
         width: parent.width
 
         model: MessageSortFilterModel {
@@ -72,7 +72,7 @@ CoverBackground {
             id: delegate
 
             width: parent.width
-            contentHeight: Theme.itemSizeExtraSmall
+            contentHeight: Theme.itemSizeExtraSmall * 0.5
 
             Row {
                 x: Theme.horizontalPageMargin
@@ -86,7 +86,7 @@ CoverBackground {
                     smooth: true
                     opacity: 0.4
 
-                    width: Theme.itemSizeExtraSmall * 0.5
+                    width: Theme.itemSizeExtraSmall * 0.3
                     height: width
 
                     anchors.verticalCenter: parent.verticalCenter
@@ -108,7 +108,7 @@ CoverBackground {
 
                     text: event_title.toUpperCase()
                     //color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                    font.pixelSize: Theme.fontSizeExtraSmall
+                    font.pixelSize: Theme.fontSizeTiny
                 }
             }
         }
@@ -124,6 +124,7 @@ CoverBackground {
 
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
+            onTriggered: ServiceProvider.refresh();
         }
     }
 }

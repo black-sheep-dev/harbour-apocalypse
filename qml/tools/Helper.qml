@@ -3,23 +3,45 @@ import QtQuick 2.0
 import org.nubecula.harbour.apocalypse 1.0
 
 Item {
-    function getCategoryIcon(categories) {
+    function getCategoryIcon(categories, severity) {
+        var suffix
+
+        switch (severity) {
+        case Message.SeverityMinor:
+            suffix = "-minor"
+            break;
+
+        case Message.SeverityModerate:
+            suffix = "-moderate"
+            break;
+
+        case Message.SeveritySevere:
+            suffix = "-severe"
+            break;
+
+        default:
+            suffix = ""
+            break;
+        }
+
+
+        // retrun icons
         if ((categories & Message.CategoryFire) === Message.CategoryFire)
-            return "qrc:/icons/category-fire"
+            return "qrc:/icons/category-fire" + suffix
 
         if ((categories & Message.CategoryHealth) === Message.CategoryHealth)
-            return "qrc:/icons/category-health"
+            return "qrc:/icons/category-health" + suffix
 
         if ((categories & Message.CategoryMet) === Message.CategoryMet)
-            return "qrc:/icons/category-meteorology"
+            return "qrc:/icons/category-meteorology" + suffix
 
         if ((categories & Message.CategorySecurity) === Message.CategorySecurity)
-            return "qrc:/icons/category-security"
+            return "qrc:/icons/category-security" + suffix
 
         if ((categories & Message.CategorySafety) === Message.CategorySafety)
-            return "qrc:/icons/category-safety"
+            return "qrc:/icons/category-safety" + suffix
 
-        return "qrc:/icons/category-info"
+        return "qrc:/icons/category-info" + suffix
     }
 
     function getSeverityColor(severity) {
@@ -27,15 +49,15 @@ Item {
 
         switch (severity) {
         case Message.SeverityMinor:
-            color = "#ffff00"
+            color = "#ffea00"
             break;
 
         case Message.SeverityModerate:
-            color = "#ff6d00"
+            color = "#ff9100"
             break;
 
         case Message.SeveritySevere:
-            color = "#d50000"
+            color = "#ff3d00"
             break;
 
         default:

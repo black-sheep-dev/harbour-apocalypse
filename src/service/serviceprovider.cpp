@@ -35,7 +35,7 @@ ServiceProvider::ServiceProvider(QObject *parent) :
 
     readServices();
     readSettings();
-    readMessages();
+    //readMessages();
 }
 
 ServiceProvider::~ServiceProvider()
@@ -45,6 +45,9 @@ ServiceProvider::~ServiceProvider()
 
 void ServiceProvider::initialize()
 {
+    // get geocode configuration
+    m_requestQueue.enqueue(getRequest(APOCALYPSE_API_SEARCH_CHANNEL));
+
     refresh();
 }
 
@@ -87,20 +90,16 @@ void ServiceProvider::refresh()
 {
     setLoading(true);
 
-    readMessages();
+    m_messageModel->reset();
+
+
+    //readMessages();
 
     for (const Service *service : m_serviceModel->services()) {
         if (!service->active())
             continue;
 
-        QNetworkRequest request(service->url());
-        request.setRawHeader("Cache-Control", "no-cache");
-        request.setRawHeader("Accept", "application/json");
-        request.setRawHeader("Connection", "keep-alive");
-        request.setRawHeader("Accept-Encoding", "gzip");
-        request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
-
-        m_requestQueue.enqueue(request);
+        m_requestQueue.enqueue(getRequest(service->url()));
     }
 
     sendRequests();
@@ -150,11 +149,12 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
+    const QString url = reply->url().toString();
     const QByteArray data = gunzip(reply->readAll());
 
     QJsonParseError error{};
 
-    const QJsonArray array = QJsonDocument::fromJson(data, &error).array();
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 
     reply->deleteLater();
 
@@ -169,20 +169,36 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
-    QList<Message *> messages;
-    for (const QJsonValue &item : array) {
-        auto *msg = new Message;
-        bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
+        if (url == APOCALYPSE_API_SEARCH_CHANNEL) {
+            m_messageHelper->setGeocodeRects(doc.object());
 
-        if (!ok) {
-            msg->deleteLater();
-            continue;
+        } else {
+            const QJsonArray array = doc.array();
+
+#ifdef QT_DEBUG
+            qDebug() << QStringLiteral("JSON ARRAY ITEMS: ") << array.count();
+#endif
+
+            QList<Message *> messages;
+            for (const QJsonValue &item : array) {
+                auto *msg = new Message;
+                bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
+
+                if (!ok) {
+                    msg->deleteLater();
+                    continue;
+                }
+
+                messages.append(msg);
+            }
+
+#ifdef QT_DEBUG
+                qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
+#endif
+
+            m_messageModel->addMessages(messages);
         }
 
-        messages.append(msg);
-    }
-
-    m_messageModel->addMessages(messages);
 }
 
 void ServiceProvider::sendRequests()
@@ -190,13 +206,25 @@ void ServiceProvider::sendRequests()
     if (m_requestQueue.isEmpty()) {
         m_sending = false;
         m_messageModel->cleanup();
-        writeMessages();
+        //writeMessages();
         setLoading(false);
         return;
     }
 
     m_sending = true;
     m_manger->get(m_requestQueue.dequeue());
+}
+
+QNetworkRequest ServiceProvider::getRequest(const QString &url)
+{
+    QNetworkRequest request(url);
+    request.setRawHeader("Cache-Control", "no-cache");
+    request.setRawHeader("Accept", "application/json");
+    request.setRawHeader("Connection", "keep-alive");
+    request.setRawHeader("Accept-Encoding", "gzip");
+    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+
+    return request;
 }
 
 QByteArray ServiceProvider::gunzip(const QByteArray &data)

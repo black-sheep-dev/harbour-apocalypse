@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+static const QString APOCALYPSE_API_SEARCH_CHANNEL = QStringLiteral("https://warnung.bund.de/assets/json/suche_channel.json");
+
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -55,6 +57,7 @@ private slots:
     void sendRequests();
 
 private:
+    QNetworkRequest getRequest(const QString &url);
     QByteArray gunzip(const QByteArray &data);
 
     void readServices();

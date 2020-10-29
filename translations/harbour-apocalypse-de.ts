@@ -126,11 +126,11 @@
     </message>
     <message>
         <source>Enter latitude (e.g. 52.518796)</source>
-        <translation>Breitengrad eingeben (z.B. 52,518796)</translation>
+        <translation>Breitengrad eingeben (z.B. 52.518796)</translation>
     </message>
     <message>
         <source>Enter longitude (e.g. 13.376241)</source>
-        <translation>Längengrad eingeben (z.B. 13,376241)</translation>
+        <translation>Längengrad eingeben (z.B. 13.376241)</translation>
     </message>
 </context>
 <context>

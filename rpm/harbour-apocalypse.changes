@@ -1,3 +1,10 @@
+* Thu Oct 29 2020 Black Sheep <blacksheep@nubecula.org> 0.1.6-1
+- Tracking with geocodes instead of polygons
+- Bugfixes
+
+* Wed Oct 28 2020 Black Sheep <blacksheep@nubecula.org> 0.1.5-1
+- Bugfixes
+
 * Wed Oct 28 2020 Black Sheep <blacksheep@nubecula.org> 0.1.4-1
 - New service (Hochwasserwarnungen)
 - Bugfixes

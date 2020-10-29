@@ -23,6 +23,12 @@ Page {
                 icon: "image://theme/icon-m-global-proxy"
                 page: "ServiceListPage.qml"
             }
+//            ListElement {
+//                title: qsTr("Developer Options")
+//                description: qsTr("Manage developer options")
+//                icon: "image://theme/icon-m-developer-mode"
+//                page: ""
+//            }
         }
 
         anchors.fill: parent

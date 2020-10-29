@@ -68,6 +68,8 @@ void MessageModel::addMessage(Message *msg)
     m_indexes.insert(msg->identifier(), m_messages.count());
     m_messages.append(msg);
     endInsertRows();
+
+    emit changed();
 }
 
 void MessageModel::addMessages(const QList<Message *> &msgs)
@@ -104,6 +106,8 @@ void MessageModel::addMessages(const QList<Message *> &msgs)
 
     m_messages.append(newMsgs);
     endInsertRows();
+
+    emit changed();
 }
 
 void MessageModel::cleanup()
@@ -126,6 +130,8 @@ void MessageModel::cleanup()
     }
 
     endResetModel();
+
+    emit changed();
 }
 
 void MessageModel::reset()
@@ -155,6 +161,8 @@ void MessageModel::setMessages(const QList<Message *> &msgs)
 
     m_messages = msgs;
     endResetModel();
+
+    emit changed();
 }
 
 bool MessageModel::updateLocalSeverity(Message *msg)

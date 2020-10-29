@@ -59,11 +59,15 @@ Dialog {
             validator: DoubleValidator {
                 bottom: -90.0
                 top: 90.0
-                decimals: 6
-                locale: Qt.locale().name
+                decimals: 16
+                locale: Qt.locale("en_EN").name
             }
 
             text: edit ? latitude : ""
+
+            onTextChanged: {
+                text = text.replace(',', '.')
+            }
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: longitudeField.focus = true
@@ -79,11 +83,15 @@ Dialog {
             validator: DoubleValidator {
                 bottom: -180.0
                 top: 180.0
-                decimals: 6
-                locale: Qt.locale().name
+                decimals: 16
+                locale: Qt.locale("en_EN").name
             }
 
             text: edit ? longitude : ""
+
+            onTextChanged: {
+                text = text.replace(',', '.')
+            }
 
             EnterKey.iconSource: "image://theme/icon-m-enter-close"
             EnterKey.onClicked: longitudeField.focus = false
@@ -92,9 +100,7 @@ Dialog {
 
     onDone: {
         name = nameField.text
-
-        var locale = Qt.locale()
-        latitude = Number.fromLocaleString(locale, latitudeField.text)
-        longitude = Number.fromLocaleString(locale, longitudeField.text)
+        latitude = latitudeField.text
+        longitude = longitudeField.text
     }
 }

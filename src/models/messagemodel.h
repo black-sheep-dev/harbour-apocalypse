@@ -47,6 +47,7 @@ public:
     void setMessages(const QList<Message *> &msgs);
 
 signals:
+    Q_INVOKABLE void changed();
     void localMainCategoriesChanged(quint32 categories);
     void localSeverityChanged(quint8 severity);
 
