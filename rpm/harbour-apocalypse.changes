@@ -1,3 +1,6 @@
+* Fri Oct 30 2020 Black Sheep <blacksheep@nubecula.org> 0.1.7-1
+- Automatic update function of messages
+
 * Thu Oct 29 2020 Black Sheep <blacksheep@nubecula.org> 0.1.6-1
 - Tracking with geocodes instead of polygons
 - Bugfixes

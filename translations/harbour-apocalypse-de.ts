@@ -306,5 +306,36 @@
         <source>Manage locations info</source>
         <translation>Verwalte Standort Informationen</translation>
     </message>
+    <message>
+        <source>Updates</source>
+        <translation>Updates</translation>
+    </message>
+    <message>
+        <source>Manage automatic updates</source>
+        <translation>Verwalte automatische Updates</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsUpdatePage</name>
+    <message>
+        <source>Automatic Updates</source>
+        <translation>Automatische Updates</translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic updates of messages.</source>
+        <translation>Hier kannst du automatische Updates aktivieren / deaktivieren.</translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation>Das aktivieren dieser Option für zu einem erhöhten Batterieverbrauch und Datennutzung.</translation>
+    </message>
+    <message>
+        <source>Update interval (minutes)</source>
+        <translation>Update Intervall (Minuten)</translation>
+    </message>
+    <message>
+        <source>When active the application will update messages in a defined interval.</source>
+        <translation>Wenn aktiviert wird die Anwendung in einem definierten Intervall eine Aktualisierung der Nachrichten durchführen.</translation>
+    </message>
 </context>
 </TS>

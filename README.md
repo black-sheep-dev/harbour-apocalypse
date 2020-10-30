@@ -23,11 +23,11 @@ Here is a list of all implemented features so far.
 - Add and manage different locations
 - Location dependent messages
 - Activate/Deactivate service
+- Automatic refreshs (deactivated by default)
 
 ## Planned Features
 
 - Notifications (no real push notofication!)
-- Automatic refreshs
 - Map View
 - Feature requests
 

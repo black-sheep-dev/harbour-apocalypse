@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.6
+VERSION = 0.1.7
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -19,6 +19,7 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
 CONFIG += sailfishapp
 
+LIBS += -L../../lib -lkeepalive
 LIBS += -lz
 
 SOURCES += src/harbour-apocalypse.cpp \
@@ -43,6 +44,7 @@ DISTFILES += qml/harbour-apocalypse.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/ServiceListPage.qml \
     qml/pages/SettingsPage.qml \
+    qml/pages/SettingsUpdatePage.qml \
     qml/tools/Helper.qml \
     rpm/harbour-apocalypse.changes \
     rpm/harbour-apocalypse.changes.run.in \

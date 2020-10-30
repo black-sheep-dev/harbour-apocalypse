@@ -8,6 +8,13 @@ import "../tools/"
 CoverBackground {
     Helper { id: helper }
 
+    PageBusyIndicator {
+        id: busyIndicator
+        size: BusyIndicatorSize.Medium
+        running: ServiceProvider.loading
+        anchors.centerIn: parent
+    }
+
     Rectangle {
         id: background
         anchors.fill: parent;

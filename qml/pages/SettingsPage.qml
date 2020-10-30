@@ -23,6 +23,13 @@ Page {
                 icon: "image://theme/icon-m-global-proxy"
                 page: "ServiceListPage.qml"
             }
+            ListElement {
+                title: qsTr("Updates")
+                description: qsTr("Manage automatic updates")
+                icon: "image://theme/icon-m-sync"
+                page: "SettingsUpdatePage.qml"
+            }
+
 //            ListElement {
 //                title: qsTr("Developer Options")
 //                description: qsTr("Manage developer options")

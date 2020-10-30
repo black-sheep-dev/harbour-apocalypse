@@ -306,5 +306,36 @@
         <source>Manage locations info</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage automatic updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsUpdatePage</name>
+    <message>
+        <source>Automatic Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic updates of messages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update interval (minutes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the application will update messages in a defined interval.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

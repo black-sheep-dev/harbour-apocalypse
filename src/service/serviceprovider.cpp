@@ -49,6 +49,9 @@ void ServiceProvider::initialize()
     m_requestQueue.enqueue(getRequest(APOCALYPSE_API_SEARCH_CHANNEL));
 
     refresh();
+
+    m_initialized = true;
+    updateBackroundActivity();
 }
 
 LocationModel *ServiceProvider::locationModel()
@@ -71,6 +74,11 @@ ServiceModel *ServiceProvider::serviceModel()
     return m_serviceModel;
 }
 
+bool ServiceProvider::autoUpdate() const
+{
+    return m_autoUpdate;
+}
+
 bool ServiceProvider::loading() const
 {
     return m_loading;
@@ -84,6 +92,11 @@ quint32 ServiceProvider::localMainCategories() const
 quint8 ServiceProvider::localSeverity() const
 {
     return m_localSeverity;
+}
+
+quint8 ServiceProvider::updateInterval() const
+{
+    return m_updateInterval;
 }
 
 void ServiceProvider::refresh()
@@ -103,6 +116,27 @@ void ServiceProvider::refresh()
     }
 
     sendRequests();
+}
+
+void ServiceProvider::setAutoUpdate(bool enable)
+{
+    if (m_autoUpdate == enable)
+        return;
+
+    m_autoUpdate = enable;
+    emit autoUpdateChanged(m_autoUpdate);
+
+    // functionality
+    if (m_autoUpdate) {
+        if (!m_activity) {
+            m_activity = new BackgroundActivity(this);
+            connect(m_activity, &BackgroundActivity::running, this, &ServiceProvider::onUpdateRequest);
+        }
+    } else {
+        m_activity->stop();
+        m_activity->deleteLater();
+        return;
+    }
 }
 
 void ServiceProvider::setLoading(bool loading)
@@ -130,6 +164,17 @@ void ServiceProvider::setLocalSeverity(quint8 severity)
 
     m_localSeverity = severity;
     emit localSeverityChanged(m_localSeverity);
+}
+
+void ServiceProvider::setUpdateInterval(quint8 interval)
+{
+    if (m_updateInterval == interval)
+        return;
+
+    m_updateInterval = interval;
+    emit updateIntervalChanged(m_updateInterval);
+
+    updateBackroundActivity();
 }
 
 void ServiceProvider::onRequestFinished(QNetworkReply *reply)
@@ -171,7 +216,6 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
 
         if (url == APOCALYPSE_API_SEARCH_CHANNEL) {
             m_messageHelper->setGeocodeRects(doc.object());
-
         } else {
             const QJsonArray array = doc.array();
 
@@ -193,12 +237,25 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
             }
 
 #ifdef QT_DEBUG
-                qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
+            qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
 #endif
 
             m_messageModel->addMessages(messages);
         }
+}
 
+void ServiceProvider::onUpdateRequest()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Background Job Update");
+#endif
+
+    if (!m_activity)
+        return;
+
+    refresh();
+
+    m_activity->wait(getUpdateInterval());
 }
 
 void ServiceProvider::sendRequests()
@@ -225,6 +282,39 @@ QNetworkRequest ServiceProvider::getRequest(const QString &url)
     request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
     return request;
+}
+
+int ServiceProvider::getUpdateInterval() const
+{
+    int interval{0};
+
+    switch (m_updateInterval) {
+    case FiveMinutes:
+        interval = BackgroundActivity::FiveMinutes;
+        break;
+
+    case TenMinutes:
+        interval = BackgroundActivity::TenMinutes;
+        break;
+
+    case FifteenMinutes:
+        interval = BackgroundActivity::FifteenMinutes;
+        break;
+
+    case ThirtyMinutes:
+        interval = BackgroundActivity::ThirtyMinutes;
+        break;
+
+    case OneHour:
+        interval = BackgroundActivity::OneHour;
+        break;
+
+    default:
+        interval = BackgroundActivity::FifteenMinutes;
+        break;
+    }
+
+    return interval;
 }
 
 QByteArray ServiceProvider::gunzip(const QByteArray &data)
@@ -274,6 +364,20 @@ QByteArray ServiceProvider::gunzip(const QByteArray &data)
     // clean up and return
     inflateEnd(&strm);
     return result;
+}
+
+void ServiceProvider::updateBackroundActivity()
+{
+    if (!m_initialized)
+        return;
+
+    if (!m_activity)
+        return;
+
+    if (m_activity->state() == BackgroundActivity::Waiting)
+        m_activity->stop();
+
+    m_activity->wait(getUpdateInterval());
 }
 
 void ServiceProvider::readServices()
@@ -462,6 +566,11 @@ void ServiceProvider::readSettings()
 {
     QSettings settings;
 
+    settings.beginGroup(QStringLiteral("APP"));
+    setAutoUpdate(settings.value(QStringLiteral("auto_update"), false).toBool());
+    setUpdateInterval(quint8(settings.value(QStringLiteral("update_interval"), 0).toInt()));
+    settings.endGroup();
+
     int size{0};
 
     settings.beginGroup(QStringLiteral("DATA"));
@@ -506,6 +615,11 @@ void ServiceProvider::readSettings()
 void ServiceProvider::writeSettings()
 {
     QSettings settings;
+
+    settings.beginGroup(QStringLiteral("APP"));
+    settings.setValue(QStringLiteral("auto_update"), m_autoUpdate);
+    settings.setValue(QStringLiteral("update_interval"), m_updateInterval);
+    settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DATA"));
     settings.beginWriteArray(QStringLiteral("locations"));
