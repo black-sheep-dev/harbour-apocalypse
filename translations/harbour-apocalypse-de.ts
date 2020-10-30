@@ -335,7 +335,7 @@
     </message>
     <message>
         <source>When active the application will update messages in a defined interval.</source>
-        <translation>Wenn aktiviert wird die Anwendung in einem definierten Intervall eine Aktualisierung der Nachrichten durchführen.</translation>
+        <translation>Wenn aktiviert wird die Anwendung in einem definierten Intervall eine Aktualisierung der Mitteilungen durchführen.</translation>
     </message>
 </context>
 </TS>
