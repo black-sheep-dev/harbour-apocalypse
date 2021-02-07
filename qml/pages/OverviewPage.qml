@@ -60,54 +60,69 @@ Page {
             id: delegate
 
             width: parent.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: contentColumn.height
 
-            Row {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
+            Column {
+                id: contentColumn
+                width: parent.width
+                spacing: Theme.paddingSmall
 
-                Image {
-                    id: itemIcon
-                    smooth: true
+                Row {
+                    id: contentRow
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2 * x
+                    spacing: Theme.paddingMedium
 
-                    opacity: 0.4
+                    Image {
+                        id: itemIcon
+                        smooth: true
 
-                    width: Theme.itemSizeSmall
-                    height: width
+                        opacity: 0.4
 
-                    anchors.verticalCenter: parent.verticalCenter
+                        width: Theme.itemSizeSmall
+                        height: width
 
-                    sourceSize.width: 256
-                    sourceSize.height: 256
+                        anchors.verticalCenter: parent.verticalCenter
 
-                    source: helper.getCategoryIcon(categories, severity)
+                        sourceSize.width: 256
+                        sourceSize.height: 256
+
+                        source: helper.getCategoryIcon(categories, severity)
+                    }
+
+                    Column {
+                        width: parent.width - itemIcon.width - Theme.paddingMedium
+                        anchors.verticalCenter: itemIcon.verticalCenter
+
+                        Label {
+                            width: parent.width
+                            text: model.locationName
+                            font.pixelSize: Theme.fontSizeSmall
+                        }
+                        Label {
+                            width: parent.width
+                            text: event_title.toUpperCase()
+                            color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
+                            font.pixelSize: Theme.fontSizeMedium
+                            wrapMode: Text.Wrap
+                        }
+                        Label {
+                            text: sender_name
+
+                            color: Theme.secondaryColor
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            wrapMode: Text.Wrap
+                        }
+
+                    }
                 }
-
                 Item {
-                    width: Theme.paddingMedium
+                    visible: index < (listView.count - 1)
+                    width: parent.width
                     height: 1
                 }
-
-                Column {
-                    width: parent.width - itemIcon.width - Theme.paddingMedium
-                    anchors.verticalCenter: itemIcon.verticalCenter
-
-                    Label {
-                        width: parent.width
-                        text: event_title.toUpperCase()
-                        color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                        font.pixelSize: Theme.fontSizeMedium
-                    }
-                    Label {
-                        text: sender_name
-
-                        color: Theme.secondaryColor
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                }
             }
+
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
         }
 

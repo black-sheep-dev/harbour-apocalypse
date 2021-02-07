@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.7
+VERSION = 0.1.8
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -18,6 +18,11 @@ TARGET = harbour-apocalypse
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
 CONFIG += sailfishapp
+
+QT += dbus
+
+PKGCONFIG += \
+    nemonotifications-qt5
 
 LIBS += -L../../lib -lkeepalive
 LIBS += -lz
@@ -35,6 +40,7 @@ SOURCES += src/harbour-apocalypse.cpp \
     src/tools/messagehelper.cpp
 
 DISTFILES += qml/harbour-apocalypse.qml \
+    data/harbour.apocalypse.service \
     qml/cover/CoverPage.qml \
     qml/dialogs/LocationEditDialog.qml \
     qml/pages/AboutPage.qml \
@@ -79,3 +85,8 @@ HEADERS += \
     src/models/servicemodel.h \
     src/service/serviceprovider.h \
     src/tools/messagehelper.h
+
+dbus.files = data/harbour.apocalypse.service
+dbus.path = $$INSTALL_ROOT/usr/share/dbus-1/services
+
+INSTALLS += dbus

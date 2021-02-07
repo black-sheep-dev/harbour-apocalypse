@@ -51,6 +51,11 @@ bool Message::local() const
     return m_local;
 }
 
+QString Message::locationName() const
+{
+    return m_locationName;
+}
+
 quint8 Message::messageType() const
 {
     return m_messageType;
@@ -170,6 +175,15 @@ void Message::setLocal(bool local)
 
     m_local = local;
     emit localChanged(m_local);
+}
+
+void Message::setLocationName(const QString &name)
+{
+    if (m_locationName == name)
+        return;
+
+    m_locationName = name;
+    emit locationNameChanged(m_locationName);
 }
 
 void Message::setMessageType(quint8 messageType)

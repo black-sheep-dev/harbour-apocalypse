@@ -22,6 +22,7 @@ public:
         IdentifierRole,
         InstructionRole,
         LocalRole,
+        LocationNameRole,
         MessageTypeRole,
         SenderNameRole,
         SentRole,
@@ -47,7 +48,7 @@ public:
     void setMessages(const QList<Message *> &msgs);
 
 signals:
-    Q_INVOKABLE void changed();
+    void changed();
     void localMainCategoriesChanged(quint32 categories);
     void localSeverityChanged(quint8 severity);
 

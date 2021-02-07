@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-static const QString APOCALYPSE_API_SEARCH_CHANNEL = QStringLiteral("https://warnung.bund.de/assets/json/suche_channel.json");
+//static const QString APOCALYPSE_API_SEARCH_CHANNEL = QStringLiteral("https://warnung.bund.de/assets/json/suche_channel.json");
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -80,6 +80,7 @@ private:
     QNetworkRequest getRequest(const QString &url);
     int getUpdateInterval() const;
     QByteArray gunzip(const QByteArray &data);
+    void notify(Message *msg);
     void updateBackroundActivity();
 
     void readServices();
@@ -96,6 +97,7 @@ private:
     QNetworkAccessManager *m_manger{nullptr};
     MessageHelper *m_messageHelper{nullptr};
     MessageModel *m_messageModel{nullptr};
+    QStringList m_notifications;
     QQueue<QNetworkRequest> m_requestQueue;
     bool m_sending{false};
     ServiceModel *m_serviceModel{nullptr};

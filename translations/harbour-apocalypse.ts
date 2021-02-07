@@ -285,6 +285,21 @@
     </message>
 </context>
 <context>
+    <name>ServiceProvider</name>
+    <message>
+        <source>Apocalypse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <source>Services</source>

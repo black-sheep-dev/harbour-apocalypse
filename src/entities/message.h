@@ -19,6 +19,7 @@ class Message : public QObject
     Q_PROPERTY(QString identifier READ identifier WRITE setIdentifier NOTIFY identifierChanged)
     Q_PROPERTY(QString instruction READ instruction WRITE setInstruction NOTIFY instructionChanged)
     Q_PROPERTY(bool local READ local WRITE setLocal NOTIFY localChanged)
+    Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
     Q_PROPERTY(quint8 messageType READ messageType WRITE setMessageType NOTIFY messageTypeChanged)
     Q_PROPERTY(QString senderName READ senderName WRITE setSenderName NOTIFY senderNameChanged)
     Q_PROPERTY(QDateTime sent READ sent WRITE setSent NOTIFY sentChanged)
@@ -82,6 +83,7 @@ public:
     QString identifier() const;
     QString instruction() const;
     bool local() const;
+    QString locationName() const;
     quint8 messageType() const;
     QString senderName() const;
     QDateTime sent() const;
@@ -104,6 +106,7 @@ signals:
     void identifierChanged(const QString &identifier);
     void instructionChanged(const QString &instruction);
     void localChanged(bool local);
+    void locationNameChanged(const QString &name);
     void messageTypeChanged(quint8 messageType);
     void senderNameChanged(const QString &senderName);
     void sentChanged(const QDateTime &sent);
@@ -112,8 +115,9 @@ signals:
     void webChanged(const QString &web);
 
     // functional properties
+    void idChanged(quint32 id);
     void fromLocalStorageChanged(bool fromLocalStorage);
-    void notifiedChanged(const QDateTime &notified);
+    void notifiedChanged(const QDateTime &notified);  
 
 public slots:
     // data properties
@@ -126,6 +130,7 @@ public slots:
     void setIdentifier(const QString &identifier);
     void setInstruction(const QString &instruction);
     void setLocal(bool local);
+    void setLocationName(const QString &name);
     void setMessageType(quint8 messageType);
     void setSenderName(const QString &senderName);
     void setSent(const QDateTime &sent);
@@ -148,6 +153,7 @@ private:
     QString m_identifier;
     QString m_instruction;
     bool m_local{false};
+    QString m_locationName;
     quint8 m_messageType{MessageType::Unkown};
     QString m_senderName;
     QDateTime m_sent;
@@ -158,7 +164,6 @@ private:
     // functional properties
     bool m_fromLocalStorage{false};
     QDateTime m_notified{QDateTime()};
-
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Message::Categories)
 

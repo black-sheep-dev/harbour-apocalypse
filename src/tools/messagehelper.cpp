@@ -21,10 +21,10 @@ void MessageHelper::enableLog(bool enable)
     m_log = enable;
 }
 
-QHash<quint16, QRectF> MessageHelper::geocodeRects() const
-{
-    return m_geocodeRects;
-}
+//QHash<quint16, QRectF> MessageHelper::geocodeRects() const
+//{
+//    return m_geocodeRects;
+//}
 
 bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 {
@@ -145,78 +145,22 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 
     // areas
     const QJsonArray areas = info.value(QStringLiteral("area")).toArray();
-    for (const QJsonValue &area : areas) {
+    for (const auto &area : areas) {
 
         // geocode
-        const QJsonArray geocodes = area.toObject().value(QStringLiteral("geocode")).toArray();
-        for (const QJsonValue &value : geocodes) {
-            const quint16 geocode = quint16(value.toObject().value(QStringLiteral("value")).toString().mid(0, 5).toInt());
+        //const QJsonArray geocodes = area.toObject().value(QStringLiteral("geocode")).toArray();
+//        for (const auto &value : geocodes) {
+//            const quint16 geocode = quint16(value.toObject().value(QStringLiteral("value")).toString().mid(0, 5).toInt());
 
-            const QRectF rect = m_geocodeRects.value(geocode, QRectF());
+//            const QRectF rect = m_geocodeRects.value(geocode, QRectF());
 
-            if (!rect.isEmpty())
-                continue;
-
-            for (const auto *loc : m_locationModel->locations()) {
-                const QPointF point(loc->latitude(), loc->longitude());
-
-                bool local = rect.contains(point);
-
-                if (!local)
-                    continue;
-
-                msg->setLocal(local);
-
-                if (local)
-                    break;
-            }
-        }
-
-
-        // polygon
-//        const QJsonArray polygons = area.toObject().value(QStringLiteral("polygon")).toArray();
-//        int i = 0;
-//        for (const QJsonValue &polygon : polygons) {
-//            QPolygonF poly;
-
-//            const QStringList parts = polygon.toString().split(" ");
-
-//            for (const QString &part : parts) {
-//                const QStringList location = part.split(",");
-
-
-//                if (location.count() != 2)
-//                    continue;
-
-//                const float lat = location.last().toFloat();
-//                const float lon = location.first().toFloat();
-
-//                if (qFuzzyCompare(lat, float(-1.0)) && qFuzzyCompare(lon, float(-1.0))) {
-//                    qDebug() << msg->identifier();
-//                    qDebug() << geocode.at(i);
-//                    continue;
-//                }
-
-//                poly.append(QPointF(lat, lon));
-//            }
-
-//            if (poly.isEmpty())
+//            if (!rect.isEmpty())
 //                continue;
-
-//#ifdef QT_DEBUG
-//            if (!poly.isClosed()) {
-//                qDebug() << QStringLiteral("POLYGON CLOSED: ") << poly.isClosed();
-//                qDebug() << poly.first();
-//                qDebug() << poly.last();
-//            }
-//            qDebug() << geocode.at(i);
-//#endif
-//            i++;
 
 //            for (const auto *loc : m_locationModel->locations()) {
 //                const QPointF point(loc->latitude(), loc->longitude());
 
-//                bool local = poly.containsPoint(point, Qt::OddEvenFill);
+//                bool local = rect.contains(point);
 
 //                if (!local)
 //                    continue;
@@ -227,43 +171,98 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 //                    break;
 //            }
 //        }
+
+
+        // polygon     
+        const QJsonArray polygons = area.toObject().value(QStringLiteral("polygon")).toArray();
+        int i = 0;
+        for (const QJsonValue &polygon : polygons) {
+            QPolygonF poly;
+
+            const QStringList parts = polygon.toString().split(" ");
+
+            for (const QString &part : parts) {
+                const QStringList location = part.split(",");
+
+
+                if (location.count() != 2)
+                    continue;
+
+                const float lat = location.last().toFloat();
+                const float lon = location.first().toFloat();
+
+                if (qFuzzyCompare(lat, float(-1.0)) && qFuzzyCompare(lon, float(-1.0))) {
+                    //qDebug() << msg->identifier();
+                    continue;
+                }
+
+                poly.append(QPointF(lat, lon));
+            }
+
+            if (poly.isEmpty())
+                continue;
+
+#ifdef QT_DEBUG
+            if (!poly.isClosed()) {
+                qDebug() << QStringLiteral("POLYGON CLOSED: ") << poly.isClosed();
+                qDebug() << poly.first();
+                qDebug() << poly.last();
+            }
+#endif
+            i++;
+
+            for (const auto *loc : m_locationModel->locations()) {
+                const QPointF point(loc->latitude(), loc->longitude());
+
+                bool local = poly.containsPoint(point, Qt::OddEvenFill);
+
+                if (!local)
+                    continue;
+
+                msg->setLocal(local);
+                msg->setLocationName(loc->name());
+
+                if (local)
+                    break;
+            }
+        }
     }
 
     return true;
 }
 
-void MessageHelper::setGeocodeRects(const QJsonObject &obj)
-{
-    const QStringList keys = obj.keys();
+//void MessageHelper::setGeocodeRects(const QJsonObject &obj)
+//{
+//    const QStringList keys = obj.keys();
 
-    for (const QString &key : keys) {
-        const QJsonObject item = obj.value(key).toObject();
+//    for (const QString &key : keys) {
+//        const QJsonObject item = obj.value(key).toObject();
 
-        QStringList string = item.value(QStringLiteral("LOWERLEFT")).toString().remove(" ").split(",");
+//        QStringList string = item.value(QStringLiteral("LOWERLEFT")).toString().remove(" ").split(",");
 
-        const QPointF lowerLeft = QPointF(string.last().toFloat(),
-                                          string.first().toFloat());
+//        const QPointF lowerLeft = QPointF(string.last().toFloat(),
+//                                          string.first().toFloat());
 
-        string = item.value(QStringLiteral("UPPERRIGHT")).toString().remove(" ").split(",");
+//        string = item.value(QStringLiteral("UPPERRIGHT")).toString().remove(" ").split(",");
 
-        const QPointF upperRight = QPointF(string.last().toFloat(),
-                                           string.first().toFloat());
+//        const QPointF upperRight = QPointF(string.last().toFloat(),
+//                                           string.first().toFloat());
 
-        QRectF rect;
-        rect.setTop(upperRight.y());
-        rect.setBottom(lowerLeft.y());
-        rect.setLeft(lowerLeft.x());
-        rect.setRight(upperRight.x());
+//        QRectF rect;
+//        rect.setTop(upperRight.y());
+//        rect.setBottom(lowerLeft.y());
+//        rect.setLeft(lowerLeft.x());
+//        rect.setRight(upperRight.x());
 
-        m_geocodeRects.insert(quint16(key.toInt()), rect);
-    }
+//        m_geocodeRects.insert(quint16(key.toInt()), rect);
+//    }
 
-#ifdef QT_DEBUG
-    qDebug() << QStringLiteral("GEOCODE RECTS COUNT: ") << m_geocodeRects.count();
-#endif
-}
+//#ifdef QT_DEBUG
+//    qDebug() << QStringLiteral("GEOCODE RECTS COUNT: ") << m_geocodeRects.count();
+//#endif
+//}
 
-void MessageHelper::setGeocodeRects(const QHash<quint16, QRectF> &rects)
-{
-    m_geocodeRects = rects;
-}
+//void MessageHelper::setGeocodeRects(const QHash<quint16, QRectF> &rects)
+//{
+//    m_geocodeRects = rects;
+//}

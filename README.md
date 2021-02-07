@@ -24,10 +24,10 @@ Here is a list of all implemented features so far.
 - Location dependent messages
 - Activate/Deactivate service
 - Automatic refreshs (deactivated by default)
+- Notifications (no real push notofication!)
 
 ## Planned Features
 
-- Notifications (no real push notofication!)
 - Map View
 - Feature requests
 

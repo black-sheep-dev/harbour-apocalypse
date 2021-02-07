@@ -49,6 +49,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * x
                 height: parent.height
+                spacing: Theme.paddingMedium
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
@@ -66,11 +67,6 @@ Page {
                     sourceSize.height: 256
 
                     source: helper.getCategoryIcon(categories, severity)
-                }
-
-                Item {
-                    width: Theme.paddingMedium
-                    height: 1
                 }
 
                 Column {

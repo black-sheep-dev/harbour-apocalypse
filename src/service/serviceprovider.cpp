@@ -1,7 +1,7 @@
 #include "serviceprovider.h"
 
-#define     APOCALYPSE_MESSAGE_DB_FILE_MAGIC        0x544f44
-#define     APOCALYPSE_MESSAGE_DB_FILE_VERSION      1
+constexpr quint64 APOCALYPSE_MESSAGE_DB_FILE_MAGIC =  0x544f44;
+constexpr quint16   APOCALYPSE_MESSAGE_DB_FILE_VERSION = 1;
 
 #ifdef QT_DEBUG
 #include <QDebug>
@@ -17,6 +17,8 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QTimer>
+
+#include <notification.h>
 
 #include <zlib.h>
 
@@ -46,7 +48,7 @@ ServiceProvider::~ServiceProvider()
 void ServiceProvider::initialize()
 {
     // get geocode configuration
-    m_requestQueue.enqueue(getRequest(APOCALYPSE_API_SEARCH_CHANNEL));
+    //m_requestQueue.enqueue(getRequest(APOCALYPSE_API_SEARCH_CHANNEL));
 
     refresh();
 
@@ -195,7 +197,11 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
     }
 
     const QString url = reply->url().toString();
-    const QByteArray data = gunzip(reply->readAll());
+    const QByteArray raw = reply->readAll();
+
+    QByteArray data = gunzip(raw);
+    if (data.isEmpty())
+        data = raw;
 
     QJsonParseError error{};
 
@@ -214,34 +220,34 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
-        if (url == APOCALYPSE_API_SEARCH_CHANNEL) {
-            m_messageHelper->setGeocodeRects(doc.object());
-        } else {
-            const QJsonArray array = doc.array();
+    const QJsonArray array = doc.array();
 
 #ifdef QT_DEBUG
-            qDebug() << QStringLiteral("JSON ARRAY ITEMS: ") << array.count();
+    qDebug() << QStringLiteral("JSON ARRAY ITEMS: ") << array.count();
 #endif
 
-            QList<Message *> messages;
-            for (const QJsonValue &item : array) {
-                auto *msg = new Message;
-                bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
+    QList<Message *> messages;
+    for (const QJsonValue &item : array) {
+        auto *msg = new Message;
+        bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
 
-                if (!ok) {
-                    msg->deleteLater();
-                    continue;
-                }
-
-                messages.append(msg);
-            }
-
-#ifdef QT_DEBUG
-            qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
-#endif
-
-            m_messageModel->addMessages(messages);
+        if (!ok) {
+            msg->deleteLater();
+            continue;
         }
+
+        if (msg->local()) {
+            notify(msg);
+        }
+
+        messages.append(msg);
+    }
+
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
+#endif
+
+    m_messageModel->addMessages(messages);
 }
 
 void ServiceProvider::onUpdateRequest()
@@ -366,6 +372,31 @@ QByteArray ServiceProvider::gunzip(const QByteArray &data)
     return result;
 }
 
+void ServiceProvider::notify(Message *msg)
+{
+    if (m_notifications.contains(msg->identifier()))
+        return;
+
+    Notification notification;
+    notification.setAppName(tr("Apocalypse"));
+    notification.setIcon(QStringLiteral("image://theme/icon-lock-warning"));
+    notification.setCategory(QStringLiteral("x-apocalypse.warnings"));
+    notification.setSummary(tr("Warning"));
+    notification.setBody(msg->headline());
+    notification.setRemoteAction(Notification::remoteAction(
+                                    QStringLiteral("default"),
+                                    tr("Default"),
+                                    QStringLiteral("harbour.apocalypse.service"),
+                                    QStringLiteral("/harbour/apocalypse/service"),
+                                    QStringLiteral("herbour.apocalypse.service"),
+                                    QStringLiteral("open")
+                                 ));
+    notification.publish();
+    connect(&notification, &Notification::clicked, &notification, &Notification::close);
+
+    m_notifications.append(msg->identifier());
+}
+
 void ServiceProvider::updateBackroundActivity()
 {
     if (!m_initialized)
@@ -405,7 +436,7 @@ void ServiceProvider::readServices()
     }
 
     QList<Service *> services;
-    for (const QJsonValue &item : array) {
+    for (const auto &item : array) {
         const QJsonObject obj = item.toObject();
 
         auto *service = new Service;
@@ -531,8 +562,8 @@ void ServiceProvider::writeMessages()
     QDataStream out(&file);
     out.setVersion(QDataStream::Qt_5_6);
 
-    out << quint64(APOCALYPSE_MESSAGE_DB_FILE_MAGIC);
-    out << quint16(APOCALYPSE_MESSAGE_DB_FILE_VERSION);
+    out << APOCALYPSE_MESSAGE_DB_FILE_MAGIC;
+    out << APOCALYPSE_MESSAGE_DB_FILE_VERSION;
 
     out << m_messageModel->localCount();
 

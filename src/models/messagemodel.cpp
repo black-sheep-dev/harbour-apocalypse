@@ -238,6 +238,9 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     case LocalRole:
         return msg->local();
 
+    case LocationNameRole:
+        return msg->locationName();
+
     case MessageTypeRole:
         return msg->messageType();
 
@@ -274,6 +277,7 @@ QHash<int, QByteArray> MessageModel::roleNames() const
     roles[IdentifierRole]           = "identitfier";
     roles[InstructionRole]          = "instruction";
     roles[LocalRole]                = "local";
+    roles[LocationNameRole]         = "locationName";
     roles[MessageTypeRole]          = "message_type";
     roles[SenderNameRole]           = "sender_name";
     roles[SentRole]                 = "sent";
