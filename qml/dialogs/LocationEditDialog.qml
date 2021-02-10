@@ -1,5 +1,6 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
+import QtPositioning 5.2
 
 Dialog {
     property bool edit: true
@@ -10,6 +11,11 @@ Dialog {
     id: locationDialog
 
     canAccept: nameField.acceptableInput && latitudeField.acceptableInput && longitudeField.acceptableInput
+
+    PositionSource {
+        id: positionSource
+        active: true
+    }
 
     Column {
         width: parent.width
@@ -47,6 +53,18 @@ Dialog {
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: latitudeField.focus = true
+        }
+
+        ButtonLayout {
+            Button {
+                id: buttonCurrentPosition
+                text: qsTr("Use current position")
+
+                onClicked: {
+                    latitudeField.text = positionSource.position.coordinate.latitude
+                    longitudeField.text = positionSource.position.coordinate.longitude
+                }
+            }
         }
 
         TextField {
@@ -96,6 +114,7 @@ Dialog {
             EnterKey.iconSource: "image://theme/icon-m-enter-close"
             EnterKey.onClicked: longitudeField.focus = false
         }
+
     }
 
     onDone: {

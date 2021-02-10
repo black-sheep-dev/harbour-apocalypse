@@ -95,7 +95,7 @@ Page {
                     }
 
                     Label {
-                        text: "lat: " + latitude + " / lon: " + longitude
+                        text: "lat: " + (latitude).toFixed(6) + " / lon: " + longitude.toFixed(6)
 
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium

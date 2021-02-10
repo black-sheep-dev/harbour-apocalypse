@@ -81,7 +81,7 @@ private:
     int getUpdateInterval() const;
     QByteArray gunzip(const QByteArray &data);
     void notify(Message *msg);
-    void updateBackroundActivity();
+    void updateBackgroundActivity();
 
     void readServices();
 
@@ -93,14 +93,14 @@ private:
 
     BackgroundActivity *m_activity{nullptr};
     bool m_initialized{false};
-    LocationModel *m_locationModel{nullptr};
-    QNetworkAccessManager *m_manger{nullptr};
+    LocationModel *m_locationModel{new LocationModel(this)};
+    QNetworkAccessManager *m_manger{new QNetworkAccessManager(this)};
     MessageHelper *m_messageHelper{nullptr};
-    MessageModel *m_messageModel{nullptr};
+    MessageModel *m_messageModel{new MessageModel(this)};
     QStringList m_notifications;
     QQueue<QNetworkRequest> m_requestQueue;
     bool m_sending{false};
-    ServiceModel *m_serviceModel{nullptr};
+    ServiceModel *m_serviceModel{new ServiceModel(this)};
 
     // properties
     bool m_autoUpdate{false};

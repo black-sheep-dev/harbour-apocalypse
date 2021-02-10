@@ -23,11 +23,7 @@ constexpr quint16   APOCALYPSE_MESSAGE_DB_FILE_VERSION = 1;
 #include <zlib.h>
 
 ServiceProvider::ServiceProvider(QObject *parent) :
-    QObject(parent),
-    m_locationModel(new LocationModel(this)),
-    m_manger(new QNetworkAccessManager(this)),
-    m_messageModel(new MessageModel(this)),
-    m_serviceModel(new ServiceModel(this))
+    QObject(parent)
 {
     m_messageHelper = new MessageHelper(m_locationModel, this);
 
@@ -53,7 +49,7 @@ void ServiceProvider::initialize()
     refresh();
 
     m_initialized = true;
-    updateBackroundActivity();
+    updateBackgroundActivity();
 }
 
 LocationModel *ServiceProvider::locationModel()
@@ -176,7 +172,7 @@ void ServiceProvider::setUpdateInterval(quint8 interval)
     m_updateInterval = interval;
     emit updateIntervalChanged(m_updateInterval);
 
-    updateBackroundActivity();
+    updateBackgroundActivity();
 }
 
 void ServiceProvider::onRequestFinished(QNetworkReply *reply)
@@ -397,7 +393,7 @@ void ServiceProvider::notify(Message *msg)
     m_notifications.append(msg->identifier());
 }
 
-void ServiceProvider::updateBackroundActivity()
+void ServiceProvider::updateBackgroundActivity()
 {
     if (!m_initialized)
         return;

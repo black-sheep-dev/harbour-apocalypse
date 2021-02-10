@@ -132,6 +132,10 @@
         <source>Enter longitude (e.g. 13.376241)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use current position</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LocationListPage</name>
