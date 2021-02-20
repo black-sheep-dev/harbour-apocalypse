@@ -197,6 +197,7 @@ Page {
                 width: parent.width - 2*x
 
                 wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
 
                 text: msg.contact
             }
@@ -214,6 +215,7 @@ Page {
                 width: parent.width - 2*x
 
                 wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
 
                 text: msg.web
 

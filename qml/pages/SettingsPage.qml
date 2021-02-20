@@ -29,6 +29,13 @@ Page {
                 icon: "image://theme/icon-m-sync"
                 page: "SettingsUpdatePage.qml"
             }
+            ListElement {
+                title: qsTr("Notification Sound")
+                description: qsTr("Manage notification sounds")
+                icon: "image://theme/icon-m-speaker-on"
+                page: "SettingsSoundPage.qml"
+            }
+
 
 //            ListElement {
 //                title: qsTr("Developer Options")

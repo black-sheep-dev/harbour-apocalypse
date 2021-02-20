@@ -1,3 +1,7 @@
+* Sat Feb 20 2021 Black Sheep <blacksheep@nubecula.org> 0.2.0-1
+- Notification sound (can be disabled in settings)
+- Code and UI cleanup
+
 * Wed Feb 10 2021 Black Sheep <blacksheep@nubecula.org> 0.1.9-1
 - Option to use current gps position when adding a location
 

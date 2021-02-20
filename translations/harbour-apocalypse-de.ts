@@ -333,6 +333,29 @@
         <source>Manage automatic updates</source>
         <translation>Verwalte automatische Updates</translation>
     </message>
+    <message>
+        <source>Manage notification sounds</source>
+        <translation>Verwalte Benachrichtungs Töne</translation>
+    </message>
+    <message>
+        <source>Notification Sound</source>
+        <translation>Hinweiston</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsSoundPage</name>
+    <message>
+        <source>When active the application will play a sound when new notification is available.</source>
+        <translation>Wenn aktiviert wird ein Ton bei einer neuen Benachrichtung abgespielt.</translation>
+    </message>
+    <message>
+        <source>Notification Sound</source>
+        <translation>Hinweiston</translation>
+    </message>
+    <message>
+        <source>Play notifaction sound</source>
+        <translation>Hinweiston</translation>
+    </message>
 </context>
 <context>
     <name>SettingsUpdatePage</name>

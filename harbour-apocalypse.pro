@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.9
+VERSION = 0.2.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -50,6 +50,7 @@ DISTFILES += qml/harbour-apocalypse.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/ServiceListPage.qml \
     qml/pages/SettingsPage.qml \
+    qml/pages/SettingsSoundPage.qml \
     qml/pages/SettingsUpdatePage.qml \
     qml/tools/Helper.qml \
     rpm/harbour-apocalypse.changes \
@@ -89,4 +90,7 @@ HEADERS += \
 dbus.files = data/harbour.apocalypse.service
 dbus.path = $$INSTALL_ROOT/usr/share/dbus-1/services
 
-INSTALLS += dbus
+sound.files = data/siren.ogg
+sound.path = $$INSTALL_ROOT/usr/share/harbour-apocalypse/sounds
+
+INSTALLS += dbus sound

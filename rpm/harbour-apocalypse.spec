@@ -9,7 +9,7 @@ Name:       harbour-apocalypse
 # << macros
 
 Summary:    Apocalypse
-Version:    0.1.9
+Version:    0.2.0
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
@@ -67,5 +67,6 @@ desktop-file-install --delete-original       \
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/dbus-1/services/harbour.apocalypse.service
+%{_datadir}/harbour-apocalypse/sounds/*
 # >> files
 # << files

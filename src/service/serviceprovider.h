@@ -25,6 +25,7 @@ class ServiceProvider : public QObject
     Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
     Q_PROPERTY(quint32 localMainCategories READ localMainCategories WRITE setLocalMainCategories NOTIFY localMainCategoriesChanged)
     Q_PROPERTY(quint8 localSeverity READ localSeverity WRITE setLocalSeverity NOTIFY localSeverityChanged)
+    Q_PROPERTY(bool playSound READ playSound WRITE setPlaySound NOTIFY playSoundChanged)
     Q_PROPERTY(quint8 updateInterval READ updateInterval WRITE setUpdateInterval NOTIFY updateIntervalChanged)
 
 public:
@@ -51,6 +52,7 @@ public:
     bool loading() const; 
     quint32 localMainCategories() const;
     quint8 localSeverity() const; 
+    bool playSound() const;
     quint8 updateInterval() const;
 
 public slots:
@@ -61,6 +63,7 @@ public slots:
     void setLoading(bool loading);
     void setLocalMainCategories(quint32 categories);
     void setLocalSeverity(quint8 severity);
+    void setPlaySound(bool playSound);
     void setUpdateInterval(quint8 interval);
 
 signals:
@@ -69,6 +72,7 @@ signals:
     void loadingChanged(bool loading);
     void localMainCategoriesChanged(quint32 categories);
     void localSeverityChanged(quint8 severity);
+    void playSoundChanged(bool playSound);
     void updateIntervalChanged(quint8 interval);
 
 private slots:
@@ -84,9 +88,6 @@ private:
     void updateBackgroundActivity();
 
     void readServices();
-
-    void readMessages();
-    void writeMessages();
 
     void readSettings();
     void writeSettings();
@@ -107,8 +108,8 @@ private:
     bool m_loading{false};
     quint32 m_localMainCategories{Message::CategoryNone};
     quint8 m_localSeverity{Message::SeverityUndefined};
+    bool m_playSound{true};
     quint8 m_updateInterval{0};
-
 };
 
 #endif // SERVICEPROVIDER_H

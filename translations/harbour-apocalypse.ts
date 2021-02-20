@@ -333,6 +333,29 @@
         <source>Manage automatic updates</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Manage notification sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notification Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsSoundPage</name>
+    <message>
+        <source>When active the application will play a sound when new notification is available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notification Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play notifaction sound</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUpdatePage</name>

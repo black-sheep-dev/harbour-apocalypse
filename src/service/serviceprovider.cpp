@@ -1,8 +1,5 @@
 #include "serviceprovider.h"
 
-constexpr quint64 APOCALYPSE_MESSAGE_DB_FILE_MAGIC =  0x544f44;
-constexpr quint16   APOCALYPSE_MESSAGE_DB_FILE_VERSION = 1;
-
 #ifdef QT_DEBUG
 #include <QDebug>
 #endif
@@ -33,7 +30,6 @@ ServiceProvider::ServiceProvider(QObject *parent) :
 
     readServices();
     readSettings();
-    //readMessages();
 }
 
 ServiceProvider::~ServiceProvider()
@@ -90,6 +86,11 @@ quint32 ServiceProvider::localMainCategories() const
 quint8 ServiceProvider::localSeverity() const
 {
     return m_localSeverity;
+}
+
+bool ServiceProvider::playSound() const
+{
+    return m_playSound;
 }
 
 quint8 ServiceProvider::updateInterval() const
@@ -162,6 +163,15 @@ void ServiceProvider::setLocalSeverity(quint8 severity)
 
     m_localSeverity = severity;
     emit localSeverityChanged(m_localSeverity);
+}
+
+void ServiceProvider::setPlaySound(bool playSound)
+{
+    if (m_playSound == playSound)
+        return;
+
+    m_playSound = playSound;
+    emit playSoundChanged(m_playSound);
 }
 
 void ServiceProvider::setUpdateInterval(quint8 interval)
@@ -387,6 +397,11 @@ void ServiceProvider::notify(Message *msg)
                                     QStringLiteral("herbour.apocalypse.service"),
                                     QStringLiteral("open")
                                  ));
+
+    if (m_playSound)
+        notification.setHintValue(QStringLiteral("sound-file"), QStringLiteral("/usr/share/harbour-apocalypse/sounds/siren.ogg"));
+
+    notification.setUrgency(Notification::Critical);
     notification.publish();
     connect(&notification, &Notification::clicked, &notification, &Notification::close);
 
@@ -446,149 +461,6 @@ void ServiceProvider::readServices()
     m_serviceModel->setServices(services);
 }
 
-void ServiceProvider::readMessages()
-{
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/messages.db"));
-
-    if (!file.open(QIODevice::ReadOnly)) {
-#ifdef QT_DEBUG
-        qDebug() << QStringLiteral("Could not write messages to database");
-#endif
-    }
-
-    QDataStream in(&file);
-    in.setVersion(QDataStream::Qt_5_6);
-
-    quint64 magic;
-    in >> magic;
-
-    if (magic != APOCALYPSE_MESSAGE_DB_FILE_MAGIC) {
-        file.close();
-        return;
-    }
-
-    quint16 version;
-    in >> version;
-
-    int count;
-    in >> count;
-
-    QList<Message *> msgs;
-
-    for (int i = 0; i < count; ++i) {
-        auto *msg = new Message;
-        msg->setFromLocalStorage(true);
-
-        QString str;
-        QDateTime timestamp;
-
-        quint32 categories;
-        in >> categories;
-        msg->setCategories(categories);
-
-        in >> str;
-        msg->setContact(str);
-
-        in >> str;
-        msg->setDescription(str);
-
-        in >> timestamp;
-        msg->setExpires(timestamp);
-
-        in >> str;
-        msg->setEventTitle(str);
-
-        in >> str;
-        msg->setHeadline(str);
-
-        in >> str;
-        msg->setIdentifier(str);
-
-        in >> str;
-        msg->setInstruction(str);
-
-        bool local;
-        in >> local;
-        msg->setLocal(local);
-
-        quint8 messageType;
-        in >> messageType;
-        msg->setMessageType(messageType);
-
-        in >> str;
-        msg->setSenderName(str);
-
-        in >> timestamp;
-        msg->setSent(timestamp);
-
-        quint8 severity;
-        in >> severity;
-        msg->setSeverity(severity);
-
-        quint8 urgency;
-        in >> urgency;
-        msg->setUrgency(urgency);
-
-        in >> str;
-        msg->setWeb(str);
-
-        in >> timestamp;
-        msg->setNotified(timestamp);
-
-        msgs.append(msg);
-    }
-
-    m_messageModel->setMessages(msgs);
-
-    file.close();
-}
-
-void ServiceProvider::writeMessages()
-{
-    QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
-
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/messages.db"));
-
-    if (!file.open(QIODevice::WriteOnly)) {
-#ifdef QT_DEBUG
-        qDebug() << QStringLiteral("Could not write messages to database");
-#endif
-    }
-
-    QDataStream out(&file);
-    out.setVersion(QDataStream::Qt_5_6);
-
-    out << APOCALYPSE_MESSAGE_DB_FILE_MAGIC;
-    out << APOCALYPSE_MESSAGE_DB_FILE_VERSION;
-
-    out << m_messageModel->localCount();
-
-    for (const auto *msg : m_messageModel->messages()) {
-        if (!msg->local())
-            continue;
-
-        out << msg->categories();
-        out << msg->contact();
-        out << msg->description();
-        out << msg->expires();
-        out << msg->eventTitle();
-        out << msg->headline();
-        out << msg->identifier();
-        out << msg->instruction();
-        out << msg->local();
-        out << msg->messageType();
-        out << msg->senderName();
-        out << msg->sent();
-        out << msg->severity();
-        out << msg->urgency();
-        out << msg->web();
-
-        out << msg->notified();
-    }
-
-    file.close();
-}
-
 void ServiceProvider::readSettings()
 {
     QSettings settings;
@@ -596,6 +468,7 @@ void ServiceProvider::readSettings()
     settings.beginGroup(QStringLiteral("APP"));
     setAutoUpdate(settings.value(QStringLiteral("auto_update"), false).toBool());
     setUpdateInterval(quint8(settings.value(QStringLiteral("update_interval"), 0).toInt()));
+    setPlaySound(settings.value(QStringLiteral("play_sound"), true).toBool());
     settings.endGroup();
 
     int size{0};
@@ -646,6 +519,7 @@ void ServiceProvider::writeSettings()
     settings.beginGroup(QStringLiteral("APP"));
     settings.setValue(QStringLiteral("auto_update"), m_autoUpdate);
     settings.setValue(QStringLiteral("update_interval"), m_updateInterval);
+    settings.setValue(QStringLiteral("play_sound"), m_playSound);
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DATA"));
