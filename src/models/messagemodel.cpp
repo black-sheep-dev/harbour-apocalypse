@@ -115,7 +115,7 @@ void MessageModel::cleanup()
     beginResetModel();
 
     // remove local stored messages
-    for (auto *msg : m_messages) {
+    for (const auto msg : m_messages) {
         if (!msg->fromLocalStorage())
             continue;
 
@@ -153,7 +153,7 @@ void MessageModel::setMessages(const QList<Message *> &msgs)
 
     int idx = 0;
 
-    for (auto *msg : msgs) {
+    for (auto msg : msgs) {
         msg->setParent(this);
         m_indexes.insert(msg->identifier(), idx);
         idx++;
@@ -183,7 +183,7 @@ bool MessageModel::updateMessage(int idx, Message *newMsg)
     if (idx < 0 || idx >= m_messages.count())
         return false;
 
-    auto *old = m_messages.at(idx);
+    auto old = m_messages.at(idx);
     m_messages.replace(idx, newMsg);
     old->deleteLater();
 
@@ -205,7 +205,7 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    const auto *msg = m_messages.at(index.row());
+    const auto msg = m_messages.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:

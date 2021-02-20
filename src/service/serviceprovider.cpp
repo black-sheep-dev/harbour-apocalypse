@@ -19,6 +19,8 @@
 
 #include <zlib.h>
 
+constexpr quint16 REQUEST_QUEUE_TIMEOUT = 500;
+
 ServiceProvider::ServiceProvider(QObject *parent) :
     QObject(parent)
 {
@@ -107,7 +109,7 @@ void ServiceProvider::refresh()
 
     //readMessages();
 
-    for (const Service *service : m_serviceModel->services()) {
+    for (const auto service : m_serviceModel->services()) {
         if (!service->active())
             continue;
 
@@ -198,11 +200,10 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
         reply->deleteLater();
 
         // send new request
-        QTimer::singleShot(500, this, &ServiceProvider::sendRequests);
+        QTimer::singleShot(REQUEST_QUEUE_TIMEOUT, this, &ServiceProvider::sendRequests);
         return;
     }
 
-    const QString url = reply->url().toString();
     const QByteArray raw = reply->readAll();
 
     QByteArray data = gunzip(raw);
@@ -216,7 +217,7 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
     reply->deleteLater();
 
     // send new request
-    QTimer::singleShot(500, this, &ServiceProvider::sendRequests);
+    QTimer::singleShot(REQUEST_QUEUE_TIMEOUT, this, &ServiceProvider::sendRequests);
 
     if (error.error) {
 #ifdef QT_DEBUG
@@ -234,7 +235,7 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
 
     QList<Message *> messages;
     for (const QJsonValue &item : array) {
-        auto *msg = new Message;
+        auto msg = new Message;
         bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
 
         if (!ok) {
@@ -450,7 +451,7 @@ void ServiceProvider::readServices()
     for (const auto &item : array) {
         const QJsonObject obj = item.toObject();
 
-        auto *service = new Service;
+        auto service = new Service;
         service->setId(obj.value(QStringLiteral("id")).toString());
         service->setName(obj.value(QStringLiteral("name")).toString());
         service->setUrl(obj.value(QStringLiteral("url")).toString());
@@ -482,7 +483,7 @@ void ServiceProvider::readSettings()
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
 
-        auto *location = new Location;
+        auto location = new Location;
         location->setName(settings.value(QStringLiteral("name")).toString());
         location->setLatitude(settings.value(QStringLiteral("lat")).toFloat());
         location->setLongitude(settings.value(QStringLiteral("lon")).toFloat());

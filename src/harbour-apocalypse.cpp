@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
 
-        auto *provider = new ServiceProvider();
+        auto provider = new ServiceProvider();
 
         return provider;
     });

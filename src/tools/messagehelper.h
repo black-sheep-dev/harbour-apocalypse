@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include <QGeoPositionInfoSource>
 #include <QHash>
 #include <QJsonObject>
 #include <QRectF>
@@ -24,6 +25,7 @@ public:
     //void setGeocodeRects(const QHash<quint16, QRectF> & rects);
 
 private:
+    QGeoPositionInfoSource *m_source{QGeoPositionInfoSource::createDefaultSource(this)};
     //QHash<quint16, QRectF> m_geocodeRects;
     LocationModel *m_locationModel{nullptr};
     bool m_log{false};

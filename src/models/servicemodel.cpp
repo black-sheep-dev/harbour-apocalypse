@@ -31,7 +31,7 @@ Service *ServiceModel::serviceAt(int index)
 
 Service *ServiceModel::serviceById(const QString &id)
 {
-    for (auto *service : m_services) {
+    for (auto service : m_services) {
         if (service->id() == id)
             return service;
     }

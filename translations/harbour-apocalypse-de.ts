@@ -169,6 +169,13 @@
     </message>
 </context>
 <context>
+    <name>MessageHelper</name>
+    <message>
+        <source>Current Position</source>
+        <translation>Aktuelle Position</translation>
+    </message>
+</context>
+<context>
     <name>MessageListPage</name>
     <message>
         <source>Refresh</source>

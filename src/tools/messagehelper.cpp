@@ -9,6 +9,7 @@
 #include <QPolygonF>
 #include <QTextStream>
 
+
 MessageHelper::MessageHelper(LocationModel *model, QObject *parent) :
     QObject(parent),
     m_locationModel(model)
@@ -144,6 +145,9 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
     msg->setSenderName(senderName);
 
     // areas
+    const QPointF currentLocation(m_source->lastKnownPosition().coordinate().latitude(),
+                                  m_source->lastKnownPosition().coordinate().longitude());
+
     const QJsonArray areas = info.value(QStringLiteral("area")).toArray();
     for (const auto &area : areas) {
 
@@ -176,12 +180,12 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
         // polygon     
         const QJsonArray polygons = area.toObject().value(QStringLiteral("polygon")).toArray();
         int i = 0;
-        for (const QJsonValue &polygon : polygons) {
+        for (const auto &polygon : polygons) {
             QPolygonF poly;
 
             const QStringList parts = polygon.toString().split(" ");
 
-            for (const QString &part : parts) {
+            for (const auto &part : parts) {
                 const QStringList location = part.split(",");
 
 
@@ -211,7 +215,7 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 #endif
             i++;
 
-            for (const auto *loc : m_locationModel->locations()) {
+            for (const auto loc : m_locationModel->locations()) {
                 const QPointF point(loc->latitude(), loc->longitude());
 
                 bool local = poly.containsPoint(point, Qt::OddEvenFill);
@@ -225,6 +229,16 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
                 if (local)
                     break;
             }
+
+            // check actual position if not local
+            if (msg->local())
+                continue;
+
+            if (!poly.containsPoint(currentLocation, Qt::OddEvenFill))
+                continue;
+
+            msg->setLocal(true);
+            msg->setLocationName(tr("Current Position"));
         }
     }
 

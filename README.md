@@ -25,6 +25,7 @@ Here is a list of all implemented features so far.
 - Activate/Deactivate service
 - Automatic refreshs (deactivated by default)
 - Notifications (no real push notofication!)
+- Show messages on actual position
 
 ## Planned Features
 

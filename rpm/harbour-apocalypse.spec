@@ -9,7 +9,7 @@ Name:       harbour-apocalypse
 # << macros
 
 Summary:    Apocalypse
-Version:    0.2.0
+Version:    0.2.1
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3

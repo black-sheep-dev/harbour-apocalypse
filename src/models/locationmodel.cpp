@@ -32,7 +32,7 @@ void LocationModel::addLocation(Location *location)
 
 void LocationModel::addLocation(const QString &name, float latitude, float longitude)
 {
-    auto *location = new Location(this);
+    auto location = new Location(this);
     location->setName(name);
     location->setLatitude(latitude);
     location->setLongitude(longitude);
@@ -41,7 +41,7 @@ void LocationModel::addLocation(const QString &name, float latitude, float longi
 
 void LocationModel::removeLocation(int index)
 {
-    auto *location = locationAt(index);
+    auto location = locationAt(index);
 
     if (!location)
         return;
@@ -57,7 +57,7 @@ void LocationModel::setLocations(const QList<Location *> &locations)
     if (!m_locations.isEmpty())
         qDeleteAll(m_locations.begin(), m_locations.end());
 
-    for (auto *location : locations) {
+    for (auto location : locations) {
         location->setParent(this);
     }
 
@@ -77,7 +77,7 @@ QVariant LocationModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    auto *loc = m_locations.at(index.row());
+    auto loc = m_locations.at(index.row());
 
     switch (role) {
     case NameRole:
@@ -99,7 +99,7 @@ bool LocationModel::setData(const QModelIndex &index, const QVariant &value, int
     if (!index.isValid())
         return false;
 
-    auto *location = m_locations.at(index.row());
+    auto location = m_locations.at(index.row());
 
     switch (role) {
     case NameRole:
