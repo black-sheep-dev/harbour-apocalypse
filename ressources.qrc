@@ -26,6 +26,7 @@
         <file alias="category-fire-severe">icons/categories/category-fire-severe.svg</file>
         <file alias="category-fire-moderate">icons/categories/category-fire-moderate.svg</file>
         <file alias="category-fire-minor">icons/categories/category-fire-minor.svg</file>
+        <file alias="liberpay">icons/liberpay.svg</file>
     </qresource>
     <qresource prefix="/content">
         <file alias="services.json">content/services.json</file>

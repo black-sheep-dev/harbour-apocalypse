@@ -11,6 +11,8 @@ class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint8 localSeverity READ localSeverity WRITE setLocalSeverity NOTIFY localSeverityChanged)
+
 public:
     enum MessageRoles {
         CategoriesRole          = Qt::UserRole + 1,
@@ -36,7 +38,6 @@ public:
     explicit MessageModel(QObject *parent = nullptr);
 
     int localCount() const;
-    quint8 localSeverity() const;
     Q_INVOKABLE Message *messageAt(int index);
     Q_INVOKABLE Message *messageByIdentifier(const QString &identifier);
     Q_INVOKABLE QList<Message *> messages() const;
@@ -47,18 +48,31 @@ public:
     void reset();
     void setMessages(const QList<Message *> &msgs);
 
+    // properties
+    quint8 localSeverity() const;
+
 signals:
     void changed();
     void localMainCategoriesChanged(quint32 categories);
+
+    // properties
     void localSeverityChanged(quint8 severity);
 
+public slots:
+    // properties
+    void setLocalSeverity(quint8 severity);
+
+private slots:
+    void updateLocalSeverity();
+
 private:
-    bool updateLocalSeverity(Message *msg);
     bool updateMessage(int idx, Message *newMsg);
 
     QList<Message *> m_messages;
     QHash<QString, int> m_indexes;
-    quint8 m_severity{Message::SeverityUndefined};
+
+    // properties
+    quint8 m_localSeverity{Message::SeverityUndefined};
 
     // QAbstractItemModel interface
 public:

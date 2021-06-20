@@ -86,11 +86,6 @@ QString Message::web() const
     return m_web;
 }
 
-bool Message::fromLocalStorage() const
-{
-    return m_fromLocalStorage;
-}
-
 QDateTime Message::notified() const
 {
     return m_notified;
@@ -238,15 +233,6 @@ void Message::setWeb(const QString &web)
 
     m_web = web;
     emit webChanged(m_web);
-}
-
-void Message::setFromLocalStorage(bool fromLocalStorage)
-{
-    if (m_fromLocalStorage == fromLocalStorage)
-        return;
-
-    m_fromLocalStorage = fromLocalStorage;
-    emit fromLocalStorageChanged(m_fromLocalStorage);
 }
 
 void Message::setNotified(const QDateTime &notified)

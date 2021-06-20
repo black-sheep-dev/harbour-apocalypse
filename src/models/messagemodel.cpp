@@ -3,24 +3,19 @@
 MessageModel::MessageModel(QObject *parent) :
     QAbstractListModel(parent)
 {
-
+    connect(this, &MessageModel::changed, this, &MessageModel::updateLocalSeverity);
 }
 
 int MessageModel::localCount() const
 {
     int count = 0;
 
-    for (const auto *msg : m_messages) {
+    for (const auto msg : m_messages) {
         if (msg->local())
             count++;
     }
 
     return count;
-}
-
-quint8 MessageModel::localSeverity() const
-{
-    return m_severity;
 }
 
 Message *MessageModel::messageAt(int index)
@@ -53,10 +48,6 @@ void MessageModel::addMessage(Message *msg)
 
     msg->setParent(this);
 
-    // update local severity
-    if (msg->local())
-        updateLocalSeverity(msg);
-
     // update
     int idx = m_indexes.value(msg->identifier(), -1);
 
@@ -76,12 +67,8 @@ void MessageModel::addMessages(const QList<Message *> &msgs)
 {
     QList<Message *> newMsgs;
 
-    for (auto *msg : msgs) {
+    for (auto msg : msgs) {
         msg->setParent(this);
-
-        // update local severity
-        if (msg->local())
-            updateLocalSeverity(msg);
 
         // update
         int index = m_indexes.value(msg->identifier(), -1);
@@ -99,7 +86,7 @@ void MessageModel::addMessages(const QList<Message *> &msgs)
     beginInsertRows(QModelIndex(), m_messages.count(), m_messages.count() + msgs.count() - 1);
     int idx = messages().count();
 
-    for (auto *msg : newMsgs) {
+    for (const auto msg : newMsgs) {
         m_indexes.insert(msg->identifier(), idx);
         idx++;
     }
@@ -113,14 +100,6 @@ void MessageModel::addMessages(const QList<Message *> &msgs)
 void MessageModel::cleanup()
 {
     beginResetModel();
-
-    // remove local stored messages
-    for (const auto msg : m_messages) {
-        if (!msg->fromLocalStorage())
-            continue;
-
-        m_messages.removeAll(msg);
-    }
 
     // update indexes;
     m_indexes.clear();
@@ -141,6 +120,8 @@ void MessageModel::reset()
     m_messages.clear();
     m_indexes.clear();
     endResetModel();
+
+    setLocalSeverity(Message::SeverityUndefined);
 }
 
 void MessageModel::setMessages(const QList<Message *> &msgs)
@@ -165,17 +146,32 @@ void MessageModel::setMessages(const QList<Message *> &msgs)
     emit changed();
 }
 
-bool MessageModel::updateLocalSeverity(Message *msg)
+quint8 MessageModel::localSeverity() const
 {
-    quint8 max = qMax(msg->severity(), m_severity);
+    return m_localSeverity;
+}
 
-    if (m_severity == max)
-        return false;
+void MessageModel::setLocalSeverity(quint8 severity)
+{
+    if (m_localSeverity == severity)
+        return;
 
-    m_severity = max;
-    emit localSeverityChanged(m_severity);
-    emit localMainCategoriesChanged(msg->categories());
-    return true;
+    m_localSeverity = severity;
+    emit localSeverityChanged(m_localSeverity);
+}
+
+void MessageModel::updateLocalSeverity()
+{
+    quint8 severity = Message::SeverityUndefined;
+
+    for (const auto msg : m_messages) {
+        if (!msg->local())
+            continue;
+
+        severity = qMax(severity, msg->severity());
+    }
+
+    setLocalSeverity(severity);
 }
 
 bool MessageModel::updateMessage(int idx, Message *newMsg)

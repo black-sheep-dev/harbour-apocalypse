@@ -20,12 +20,24 @@
         <translation>Spenden</translation>
     </message>
     <message>
-        <source>If you like my work you can buy me a beer.</source>
-        <translation>Wenn dir meine Arbeit gefällt, kannst du mir ein Bier ausgeben.</translation>
-    </message>
-    <message>
         <source>Apocalypse is an application for showing and notify of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.</source>
         <translation>Apokalypse ist eine Anwendung zum Anzeigen und Benachrichtigen von Warnungen von deutschen Warndienste wie DWD, MOWAS, BIWAPP and KATWARN.</translation>
+    </message>
+    <message>
+        <source>Give star</source>
+        <translation>Stern vergeben</translation>
+    </message>
+    <message>
+        <source>If you like my work why not buy me a beer?</source>
+        <translation>Wenn Du meine Arbeit magst, warum gibst du mir nicht einfach ein Bier aus?</translation>
+    </message>
+    <message>
+        <source>Donate with PayPal</source>
+        <translation>Spenden via PayPal</translation>
+    </message>
+    <message>
+        <source>Donate with Liberpay</source>
+        <translation>Spenden via Liberpay</translation>
     </message>
 </context>
 <context>

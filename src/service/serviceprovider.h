@@ -56,7 +56,7 @@ public:
     quint8 updateInterval() const;
 
 public slots:
-    Q_INVOKABLE void refresh();
+    void refresh();
 
     // properties
     void setAutoUpdate(bool enable);
@@ -78,7 +78,6 @@ signals:
 private slots:
     void onRequestFinished(QNetworkReply *reply);
     void onUpdateRequest();
-    void sendRequests();
 
 private:
     QNetworkRequest getRequest(const QString &url);
@@ -95,12 +94,10 @@ private:
     BackgroundActivity *m_activity{nullptr};
     bool m_initialized{false};
     LocationModel *m_locationModel{new LocationModel(this)};
-    QNetworkAccessManager *m_manger{new QNetworkAccessManager(this)};
+    QNetworkAccessManager *m_manager{new QNetworkAccessManager(this)};
     MessageHelper *m_messageHelper{nullptr};
     MessageModel *m_messageModel{new MessageModel(this)};
     QStringList m_notifications;
-    QQueue<QNetworkRequest> m_requestQueue;
-    bool m_sending{false};
     ServiceModel *m_serviceModel{new ServiceModel(this)};
 
     // properties

@@ -28,7 +28,6 @@ class Message : public QObject
     Q_PROPERTY(QString web READ web WRITE setWeb NOTIFY webChanged)
 
     // functional properties
-    Q_PROPERTY(bool fromLocalStorage READ fromLocalStorage WRITE setFromLocalStorage NOTIFY fromLocalStorageChanged)
     Q_PROPERTY(QDateTime notified READ notified WRITE setNotified NOTIFY notifiedChanged)
 
 public:
@@ -92,7 +91,6 @@ public:
     QString web() const;
 
     // functional properties
-    bool fromLocalStorage() const;
     QDateTime notified() const;
 
 signals:
@@ -116,7 +114,6 @@ signals:
 
     // functional properties
     void idChanged(quint32 id);
-    void fromLocalStorageChanged(bool fromLocalStorage);
     void notifiedChanged(const QDateTime &notified);  
 
 public slots:
@@ -139,7 +136,6 @@ public slots:
     void setWeb(const QString &web);
 
     // functional properties
-    void setFromLocalStorage(bool fromLocalStorage);
     void setNotified(const QDateTime &notified);
 
 private:
@@ -162,7 +158,6 @@ private:
     QString m_web;
 
     // functional properties
-    bool m_fromLocalStorage{false};
     QDateTime m_notified{QDateTime()};
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Message::Categories)

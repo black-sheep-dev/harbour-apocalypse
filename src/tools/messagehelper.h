@@ -19,14 +19,10 @@ public:
     explicit MessageHelper(LocationModel *model, QObject *parent = nullptr);
 
     void enableLog(bool enable = true);
-    //QHash<quint16, QRectF> geocodeRects() const;
     bool parseMessage(const QJsonObject &obj, Message *msg);
-    //void setGeocodeRects(const QJsonObject &obj);
-    //void setGeocodeRects(const QHash<quint16, QRectF> & rects);
 
 private:
     QGeoPositionInfoSource *m_source{QGeoPositionInfoSource::createDefaultSource(this)};
-    //QHash<quint16, QRectF> m_geocodeRects;
     LocationModel *m_locationModel{nullptr};
     bool m_log{false};
 };

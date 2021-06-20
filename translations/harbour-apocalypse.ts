@@ -20,11 +20,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you like my work you can buy me a beer.</source>
+        <source>Apocalypse is an application for showing and notify of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apocalypse is an application for showing and notify of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.</source>
+        <source>Give star</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you like my work why not buy me a beer?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with PayPal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with Liberpay</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

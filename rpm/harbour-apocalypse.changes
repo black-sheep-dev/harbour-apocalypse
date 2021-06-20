@@ -1,3 +1,7 @@
+* Sun Jun 20 2021 Black Sheep <blacksheep@nubecula.org> 0.2.3-1
+- fixed bug with local severity not changing correctly
+- code cleanup / rework
+
 * Sun May 16 2021 Black Sheep <blacksheep@nubecula.org> 0.2.2-1
 - aarch64 support
 

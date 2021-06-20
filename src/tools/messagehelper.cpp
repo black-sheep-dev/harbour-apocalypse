@@ -22,11 +22,6 @@ void MessageHelper::enableLog(bool enable)
     m_log = enable;
 }
 
-//QHash<quint16, QRectF> MessageHelper::geocodeRects() const
-//{
-//    return m_geocodeRects;
-//}
-
 bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 {
     if (!msg)
@@ -151,32 +146,6 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
     const QJsonArray areas = info.value(QStringLiteral("area")).toArray();
     for (const auto &area : areas) {
 
-        // geocode
-        //const QJsonArray geocodes = area.toObject().value(QStringLiteral("geocode")).toArray();
-//        for (const auto &value : geocodes) {
-//            const quint16 geocode = quint16(value.toObject().value(QStringLiteral("value")).toString().mid(0, 5).toInt());
-
-//            const QRectF rect = m_geocodeRects.value(geocode, QRectF());
-
-//            if (!rect.isEmpty())
-//                continue;
-
-//            for (const auto *loc : m_locationModel->locations()) {
-//                const QPointF point(loc->latitude(), loc->longitude());
-
-//                bool local = rect.contains(point);
-
-//                if (!local)
-//                    continue;
-
-//                msg->setLocal(local);
-
-//                if (local)
-//                    break;
-//            }
-//        }
-
-
         // polygon     
         const QJsonArray polygons = area.toObject().value(QStringLiteral("polygon")).toArray();
         int i = 0;
@@ -244,39 +213,3 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 
     return true;
 }
-
-//void MessageHelper::setGeocodeRects(const QJsonObject &obj)
-//{
-//    const QStringList keys = obj.keys();
-
-//    for (const QString &key : keys) {
-//        const QJsonObject item = obj.value(key).toObject();
-
-//        QStringList string = item.value(QStringLiteral("LOWERLEFT")).toString().remove(" ").split(",");
-
-//        const QPointF lowerLeft = QPointF(string.last().toFloat(),
-//                                          string.first().toFloat());
-
-//        string = item.value(QStringLiteral("UPPERRIGHT")).toString().remove(" ").split(",");
-
-//        const QPointF upperRight = QPointF(string.last().toFloat(),
-//                                           string.first().toFloat());
-
-//        QRectF rect;
-//        rect.setTop(upperRight.y());
-//        rect.setBottom(lowerLeft.y());
-//        rect.setLeft(lowerLeft.x());
-//        rect.setRight(upperRight.x());
-
-//        m_geocodeRects.insert(quint16(key.toInt()), rect);
-//    }
-
-//#ifdef QT_DEBUG
-//    qDebug() << QStringLiteral("GEOCODE RECTS COUNT: ") << m_geocodeRects.count();
-//#endif
-//}
-
-//void MessageHelper::setGeocodeRects(const QHash<quint16, QRectF> &rects)
-//{
-//    m_geocodeRects = rects;
-//}
