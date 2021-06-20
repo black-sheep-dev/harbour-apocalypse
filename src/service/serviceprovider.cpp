@@ -26,7 +26,7 @@ ServiceProvider::ServiceProvider(QObject *parent) :
 {
     m_messageHelper = new MessageHelper(m_locationModel, this);
 
-    connect(m_manger, &QNetworkAccessManager::finished, this, &ServiceProvider::onRequestFinished);
+    connect(m_manager, &QNetworkAccessManager::finished, this, &ServiceProvider::onRequestFinished);
     connect(m_messageModel, &MessageModel::localSeverityChanged, this, &ServiceProvider::setLocalSeverity);
     connect(m_messageModel, &MessageModel::localMainCategoriesChanged, this, &ServiceProvider::setLocalMainCategories);
 
@@ -41,9 +41,6 @@ ServiceProvider::~ServiceProvider()
 
 void ServiceProvider::initialize()
 {
-    // get geocode configuration
-    //m_requestQueue.enqueue(getRequest(APOCALYPSE_API_SEARCH_CHANNEL));
-
     refresh();
 
     m_initialized = true;
@@ -102,21 +99,16 @@ quint8 ServiceProvider::updateInterval() const
 
 void ServiceProvider::refresh()
 {
-    setLoading(true);
+    //setLoading(true);
 
     m_messageModel->reset();
-
-
-    //readMessages();
 
     for (const auto service : m_serviceModel->services()) {
         if (!service->active())
             continue;
 
-        m_requestQueue.enqueue(getRequest(service->url()));
+        m_manager->get(getRequest(service->url()));
     }
-
-    sendRequests();
 }
 
 void ServiceProvider::setAutoUpdate(bool enable)
@@ -199,8 +191,6 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
 #endif
         reply->deleteLater();
 
-        // send new request
-        QTimer::singleShot(REQUEST_QUEUE_TIMEOUT, this, &ServiceProvider::sendRequests);
         return;
     }
 
@@ -216,8 +206,6 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
 
     reply->deleteLater();
 
-    // send new request
-    QTimer::singleShot(REQUEST_QUEUE_TIMEOUT, this, &ServiceProvider::sendRequests);
 
     if (error.error) {
 #ifdef QT_DEBUG
@@ -269,20 +257,6 @@ void ServiceProvider::onUpdateRequest()
     refresh();
 
     m_activity->wait(getUpdateInterval());
-}
-
-void ServiceProvider::sendRequests()
-{
-    if (m_requestQueue.isEmpty()) {
-        m_sending = false;
-        m_messageModel->cleanup();
-        //writeMessages();
-        setLoading(false);
-        return;
-    }
-
-    m_sending = true;
-    m_manger->get(m_requestQueue.dequeue());
 }
 
 QNetworkRequest ServiceProvider::getRequest(const QString &url)
@@ -501,7 +475,7 @@ void ServiceProvider::readSettings()
 
         const QString id = settings.value(QStringLiteral("id")).toString();
 
-        auto *service = m_serviceModel->serviceById(id);
+        auto service = m_serviceModel->serviceById(id);
 
         if (!service)
             continue;

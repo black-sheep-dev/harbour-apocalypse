@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.2.1
+VERSION = 0.2.3
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -19,7 +19,7 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
 CONFIG += sailfishapp
 
-QT += dbus positioning
+QT += dbus positioning location
 
 PKGCONFIG += \
     nemonotifications-qt5
