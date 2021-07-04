@@ -149,6 +149,8 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
         // polygon     
         const QJsonArray polygons = area.toObject().value(QStringLiteral("polygon")).toArray();
         int i = 0;
+
+
         for (const auto &polygon : polygons) {
             QPolygonF poly;
 
