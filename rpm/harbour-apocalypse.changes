@@ -1,3 +1,7 @@
+* Sun Jul 04 2021 Black Sheep <blacksheep@nubecula.org> 0.2.4-1
+- Fixed wrong category icon is showing on cover page
+- Directly open message when click the notification
+
 * Sun Jun 20 2021 Black Sheep <blacksheep@nubecula.org> 0.2.3-1
 - fixed bug with local severity not changing correctly
 - code cleanup / rework
