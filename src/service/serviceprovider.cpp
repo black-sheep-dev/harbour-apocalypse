@@ -369,8 +369,9 @@ void ServiceProvider::notify(Message *msg)
                                     tr("Default"),
                                     QStringLiteral("harbour.apocalypse.service"),
                                     QStringLiteral("/harbour/apocalypse/service"),
-                                    QStringLiteral("herbour.apocalypse.service"),
-                                    QStringLiteral("open")
+                                    QStringLiteral("harbour.apocalypse.service"),
+                                    QStringLiteral("open"),
+                                    QVariantList() << msg->identifier()
                                  ));
 
     if (m_playSound)

@@ -22,11 +22,17 @@ ApplicationWindow
         xml: '\
   <interface name="harbour.apocalypse.service">
     <method name="open">
+        <arg name="identifier" type="s" direction="in">
+        </arg>
     </method>
   </interface>'
 
-        function open() {
+        function open(identifier) {
             __silica_applicationwindow_instance.activate()
+            var msg = ServiceProvider.messageModel().messageByIdentifier(identifier)
+
+            if (msg !== undefined)
+                pageStack.push(Qt.resolvedUrl("pages/MessagePage.qml"), { msg: msg })
         }
     }
 }
