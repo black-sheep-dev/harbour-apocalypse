@@ -163,15 +163,20 @@ void MessageModel::setLocalSeverity(quint8 severity)
 void MessageModel::updateLocalSeverity()
 {
     quint8 severity = Message::SeverityUndefined;
+    quint32 categories = Message::CategoryNone;
 
     for (const auto msg : m_messages) {
         if (!msg->local())
             continue;
 
         severity = qMax(severity, msg->severity());
+
+        if (severity == msg->severity())
+           categories = msg->categories();
     }
 
     setLocalSeverity(severity);
+    emit localMainCategoriesChanged(categories);
 }
 
 bool MessageModel::updateMessage(int idx, Message *newMsg)
