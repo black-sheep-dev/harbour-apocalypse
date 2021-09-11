@@ -31,4 +31,7 @@
     <qresource prefix="/content">
         <file alias="services.json">content/services.json</file>
     </qresource>
+    <qresource prefix="/cover">
+        <file alias="cover-background">icons/cover-background.svg</file>
+    </qresource>
 </RCC>

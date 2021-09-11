@@ -90,10 +90,6 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>No messages available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apocalypse</source>
         <translation type="unfinished"></translation>
     </message>

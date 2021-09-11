@@ -9,12 +9,6 @@ import org.nubecula.harbour.apocalypse 1.0
 
 ApplicationWindow
 {
-    initialPage: Component { OverviewPage { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    allowedOrientations: defaultAllowedOrientations
-
-    Component.onCompleted: ServiceProvider.initialize()
-
     DBusAdaptor {
         service: "harbour.apocalypse.service"
         iface: "harbour.apocalypse.service"
@@ -35,4 +29,10 @@ ApplicationWindow
                 pageStack.push(Qt.resolvedUrl("pages/MessagePage.qml"), { msg: msg })
         }
     }
+
+    initialPage: Component { OverviewPage { } }
+    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    allowedOrientations: defaultAllowedOrientations
+
+    Component.onCompleted: ServiceProvider.initialize()
 }

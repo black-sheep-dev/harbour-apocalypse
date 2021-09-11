@@ -13,7 +13,7 @@ Page {
             MenuItem {
                 text: qsTr("Add Location")
                 onClicked: {
-                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {edit: false})
+                    var dialog = pageStack.animatorPush(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {edit: false})
 
                     dialog.accepted.connect(function () {
                         ServiceProvider.locationModel().addLocation(dialog.name, dialog.latitude, dialog.longitude)
@@ -40,7 +40,7 @@ Page {
                 MenuItem {
                     text: qsTr("Edit");
                     onClicked: {
-                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {
+                        var dialog = pageStack.animatorPush(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {
                                                         edit: true,
                                                         name: name,
                                                         latitude: latitude,

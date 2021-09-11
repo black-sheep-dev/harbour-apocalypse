@@ -24,15 +24,15 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("About")
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                onClicked: pageStack.animatorPush(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
                 text: qsTr("Settings")
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+                onClicked: pageStack.animatorPush(Qt.resolvedUrl("SettingsPage.qml"))
             }
             MenuItem {
                 text: qsTr("All Messages")
-                onClicked: pageStack.push(Qt.resolvedUrl("MessageListPage.qml"))
+                onClicked: pageStack.animatorPush(Qt.resolvedUrl("MessageListPage.qml"))
             }
             MenuItem {
                 text: qsTr("Refresh")
@@ -123,7 +123,7 @@ Page {
                 }
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
+            onClicked: pageStack.animatorPush(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
         }
 
         ViewPlaceholder {

@@ -87,7 +87,7 @@ Page {
                     }
                 }
             }
-            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
+            onClicked: pageStack.animatorPush(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
         }
 
         ViewPlaceholder {

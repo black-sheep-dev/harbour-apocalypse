@@ -90,7 +90,7 @@ Page {
                 }
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl(page))
+            onClicked: pageStack.animatorPush(Qt.resolvedUrl(page))
         }
 
         VerticalScrollDecorator {}

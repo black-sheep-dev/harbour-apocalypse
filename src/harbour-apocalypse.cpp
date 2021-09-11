@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 
 
     QCoreApplication::setApplicationVersion(APP_VERSION);
+    QCoreApplication::setApplicationName(APP_TARGET);
     QCoreApplication::setOrganizationName("nubecula.org");
     QCoreApplication::setOrganizationDomain("nubecula.org");
 

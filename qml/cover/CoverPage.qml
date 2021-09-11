@@ -8,6 +8,17 @@ import "../tools/"
 CoverBackground {
     Helper { id: helper }
 
+    Image {
+        visible: ServiceProvider.localSeverity === Message.SeverityUndefined
+        anchors.left: parent.left
+        anchors.top: parent.top
+        width: parent.width
+        height: sourceSize.height * width / sourceSize.width
+        smooth: true
+        source: "qrc:///cover/cover-background"
+        opacity: 0.1
+    }
+
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Medium
@@ -119,15 +130,15 @@ CoverBackground {
                 }
             }
         }
-
-        ViewPlaceholder {
-            enabled: listView.count == 0
-            text: qsTr("No messages available")
-        }
     }
 
     CoverActionList {
         id: coverAction
+
+        CoverAction {
+            iconSource: "image://theme/icon-cover-refresh"
+            onTriggered: console.log(listView.count)
+        }
 
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
