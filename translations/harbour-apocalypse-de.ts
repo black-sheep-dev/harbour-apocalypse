@@ -280,10 +280,6 @@
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <source>All Messages</source>
-        <translation>Alle Mitteilungen</translation>
-    </message>
-    <message>
         <source>No local messages</source>
         <translation>Keine lokalen Mitteilungen</translation>
     </message>

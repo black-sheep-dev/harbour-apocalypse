@@ -280,10 +280,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No local messages</source>
         <translation type="unfinished"></translation>
     </message>
