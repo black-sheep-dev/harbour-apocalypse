@@ -115,7 +115,17 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
     }
 
     // string data
-    msg->setEventTitle(info.value(QStringLiteral("event")).toString());
+    const QString event = info.value(QStringLiteral("event")).toString();
+
+    bool number;
+    event.toInt(&number);
+
+    if (number) {
+        msg->setEventTitle(info.value(QStringLiteral("headline")).toString());
+    } else {
+        msg->setEventTitle(event);
+    }
+
     msg->setHeadline(info.value(QStringLiteral("headline")).toString());
     msg->setDescription(info.value(QStringLiteral("description")).toString());
     msg->setInstruction(info.value(QStringLiteral("instruction")).toString());
@@ -144,6 +154,10 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
                                   m_source->lastKnownPosition().coordinate().longitude());
 
     const QJsonArray areas = info.value(QStringLiteral("area")).toArray();
+
+    QJsonArray localPolygons;
+    QRectF boundingRect;
+
     for (const auto &area : areas) {
 
         // polygon     
@@ -152,6 +166,8 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 
 
         for (const auto &polygon : polygons) {
+            QJsonArray localPolygon;
+
             QPolygonF poly;
 
             const QStringList parts = polygon.toString().split(" ");
@@ -166,16 +182,24 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
                 const float lat = location.last().toFloat();
                 const float lon = location.first().toFloat();
 
-                if (qFuzzyCompare(lat, float(-1.0)) && qFuzzyCompare(lon, float(-1.0))) {
-                    //qDebug() << msg->identifier();
+                if (lat == 0.0 && lon == 0.0)
                     continue;
-                }
 
                 poly.append(QPointF(lat, lon));
+
+                // add coordinate to local polygon
+                QJsonArray coord;
+                coord.append(lon);
+                coord.append(lat);
+
+                localPolygon.append(coord);
             }
 
             if (poly.isEmpty())
                 continue;
+
+            localPolygons.append(localPolygon);
+            boundingRect = boundingRect.united(poly.boundingRect());
 
 #ifdef QT_DEBUG
             if (!poly.isClosed()) {
@@ -186,6 +210,7 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
 #endif
             i++;
 
+            // location
             for (const auto loc : m_locationModel->locations()) {
                 const QPointF point(loc->latitude(), loc->longitude());
 
@@ -212,6 +237,12 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
             msg->setLocationName(tr("Current Position"));
         }
     }
+
+    msg->setPolygons(localPolygons);
+
+    // bounding box
+    msg->setBoundingBox(boundingRect);
+
 
     return true;
 }

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.KeepAlive 1.2
 
 import org.nubecula.harbour.apocalypse 1.0
 
@@ -43,8 +44,8 @@ Page {
                 text: qsTr("Automatic Updates")
                 description: qsTr("When active the application will update messages in a defined interval.")
 
-                onCheckedChanged: ServiceProvider.autoUpdate = checked
-                Component.onCompleted: checked = ServiceProvider.autoUpdate
+                onCheckedChanged: settings.autoUpdate = checked
+                Component.onCompleted: checked = settings.autoUpdate
             }
 
             ComboBox {
@@ -55,7 +56,27 @@ Page {
                 width: parent.width
                 label: qsTr("Update interval (minutes)")
 
-                currentIndex: ServiceProvider.updateInterval
+                currentIndex: {
+                    switch (settings.updateInterval) {
+                    case BackgroundJob.FiveMinutes:
+                        return 0
+
+                    case BackgroundJob.TenMinutes:
+                        return 1
+
+                    case BackgroundJob.FifteenMinutes:
+                        return 2
+
+                    case BackgroundJob.ThirtyMinutes:
+                        return 3
+
+                    case BackgroundJob.OneHour:
+                        return 4
+
+                    default:
+                        return 0
+                    }
+                }
 
                 menu: ContextMenu {
                     MenuItem {
@@ -80,8 +101,31 @@ Page {
 
     onStatusChanged: {
         if (status === PageStatus.Deactivating) {
-            ServiceProvider.updateInterval = updateIntervalBox.currentIndex
-            ServiceProvider.saveSettings()
+            switch (updateIntervalBox.currentIndex) {
+            case 0:
+                settings.updateInterval = BackgroundJob.FiveMinutes
+                break
+
+            case 1:
+                settings.updateInterval = BackgroundJob.TenMinutes
+                break
+
+            case 2:
+                settings.updateInterval = BackgroundJob.FifteenMinutes
+                break
+
+            case 3:
+                settings.updateInterval = BackgroundJob.ThirtyMinutes
+                break
+
+            case 4:
+                settings.updateInterval = BackgroundJob.OneHour
+                break
+
+            default:
+                settings.updateInterval = BackgroundJob.FiveMinutes
+                break
+            }
         }
     }
 }

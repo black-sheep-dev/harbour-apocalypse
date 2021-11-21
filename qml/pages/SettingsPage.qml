@@ -35,7 +35,12 @@ Page {
                 icon: "image://theme/icon-m-speaker-on"
                 page: "SettingsSoundPage.qml"
             }
-
+            ListElement {
+                title: qsTr("Mapbox")
+                description: qsTr("Manage Mapbox API Key")
+                icon: "image://theme/icon-m-levels"
+                page: "SettingsMapboxPage.qml"
+            }
 
 //            ListElement {
 //                title: qsTr("Developer Options")

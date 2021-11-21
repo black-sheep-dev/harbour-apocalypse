@@ -1,6 +1,6 @@
 Name: harbour-apocalypse
 Summary: Apocalypse
-Version: 0.2.4
+Version: 0.3.0
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -35,6 +35,11 @@ Requires:
   - sailfishsilica-qt5 >= 0.10.9
   - nemo-qml-plugin-notifications-qt5
   - nemo-qml-plugin-dbus-qt5
+  - qt5-qtdeclarative-import-multimedia >= 5.2
+  - qt5-qtdeclarative-import-positioning >= 5.2
+  - mapboxgl-qml >= 1.7.0
+
+
 
 # All installed files
 Files:
@@ -42,8 +47,9 @@ Files:
   - '%{_datadir}/%{name}'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
-  - '%{_datadir}/dbus-1/services/harbour.apocalypse.service'
   - '%{_datadir}/harbour-apocalypse/sounds/*'
+  - '%{_datadir}/harbour-apocalypse/images/*'
+  - '%{_datadir}/harbour-apocalypse/icons/*'
 
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle

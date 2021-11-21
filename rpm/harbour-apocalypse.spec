@@ -9,7 +9,7 @@ Name:       harbour-apocalypse
 # << macros
 
 Summary:    Apocalypse
-Version:    0.2.4
+Version:    0.3.0
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
@@ -19,6 +19,9 @@ Source100:  harbour-apocalypse.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   nemo-qml-plugin-dbus-qt5
+Requires:   qt5-qtdeclarative-import-multimedia >= 5.2
+Requires:   qt5-qtdeclarative-import-positioning >= 5.2
+Requires:   mapboxgl-qml >= 1.7.0
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -68,7 +71,8 @@ desktop-file-install --delete-original       \
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/dbus-1/services/harbour.apocalypse.service
 %{_datadir}/harbour-apocalypse/sounds/*
+%{_datadir}/harbour-apocalypse/images/*
+%{_datadir}/harbour-apocalypse/icons/*
 # >> files
 # << files

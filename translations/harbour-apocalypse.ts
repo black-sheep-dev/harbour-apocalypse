@@ -319,6 +319,21 @@
     </message>
 </context>
 <context>
+    <name>SettingsMapboxPage</name>
+    <message>
+        <source>Mapbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can provide your own Mapbox API key. This helps to reduce the number of API calls with the implementen key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>API Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <source>Services</source>
@@ -354,6 +369,14 @@
     </message>
     <message>
         <source>Notification Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mapbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Mapbox API Key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

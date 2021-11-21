@@ -4,12 +4,15 @@
 #include <QObject>
 
 #include <QDateTime>
+#include <QJsonArray>
+#include <QRectF>
 
 class Message : public QObject
 {
     Q_OBJECT
 
     // data properties
+    Q_PROPERTY(QRectF boundingBox READ boundingBox WRITE setBoundingBox NOTIFY boundingBoxChanged)
     Q_PROPERTY(quint32 categories READ categories WRITE setCategories NOTIFY categoriesChanged)
     Q_PROPERTY(QString contact READ contact WRITE setContact NOTIFY contactChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
@@ -21,6 +24,7 @@ class Message : public QObject
     Q_PROPERTY(bool local READ local WRITE setLocal NOTIFY localChanged)
     Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
     Q_PROPERTY(quint8 messageType READ messageType WRITE setMessageType NOTIFY messageTypeChanged)
+    Q_PROPERTY(QJsonArray polygons READ polygons WRITE setPolygons NOTIFY polygonsChanged)
     Q_PROPERTY(QString senderName READ senderName WRITE setSenderName NOTIFY senderNameChanged)
     Q_PROPERTY(QDateTime sent READ sent WRITE setSent NOTIFY sentChanged)
     Q_PROPERTY(quint8 severity READ severity WRITE setSeverity NOTIFY severityChanged)
@@ -73,28 +77,31 @@ public:
     explicit Message(QObject *parent = nullptr);
 
     // data properties
+    const QRectF &boundingBox() const;
     quint32 categories() const;
-    QString contact() const;
-    QString description() const;
-    QDateTime expires() const;
-    QString eventTitle() const;
-    QString headline() const;
-    QString identifier() const;
-    QString instruction() const;
+    const QString &contact() const;
+    const QString &description() const;
+    const QDateTime &expires() const;
+    const QString &eventTitle() const;
+    const QString &headline() const;
+    const QString &identifier() const;
+    const QString &instruction() const;
     bool local() const;
-    QString locationName() const;
+    const QString &locationName() const;
     quint8 messageType() const;
-    QString senderName() const;
-    QDateTime sent() const;
+    const QJsonArray &polygons() const;
+    const QString &senderName() const;
+    const QDateTime &sent() const;
     quint8 severity() const;
     quint8 urgency() const;
-    QString web() const;
+    const QString &web() const;
 
     // functional properties
-    QDateTime notified() const;
+    const QDateTime &notified() const;
 
 signals:
     // data properties
+    void boundingBoxChanged();
     void categoriesChanged(quint32 categories);
     void contactChanged(const QString &contact);
     void descriptionChanged(const QString &description);
@@ -104,8 +111,10 @@ signals:
     void identifierChanged(const QString &identifier);
     void instructionChanged(const QString &instruction);
     void localChanged(bool local);
+    void locationChanged();
     void locationNameChanged(const QString &name);
     void messageTypeChanged(quint8 messageType);
+    void polygonsChanged();
     void senderNameChanged(const QString &senderName);
     void sentChanged(const QDateTime &sent);
     void severityChanged(quint8 severity);
@@ -118,6 +127,7 @@ signals:
 
 public slots:
     // data properties
+    void setBoundingBox(const QRectF &boundingBox);
     void setCategories(quint32 categories);
     void setContact(const QString &contact);
     void setDescription(const QString &description);
@@ -129,6 +139,7 @@ public slots:
     void setLocal(bool local);
     void setLocationName(const QString &name);
     void setMessageType(quint8 messageType);
+    void setPolygons(const QJsonArray &polygons);
     void setSenderName(const QString &senderName);
     void setSent(const QDateTime &sent);
     void setSeverity(quint8 severity);
@@ -140,6 +151,7 @@ public slots:
 
 private:
     // data properties
+    QRectF m_boundingBox;
     quint32 m_categories{Category::CategoryNone};
     QString m_contact;
     QString m_description;
@@ -151,6 +163,7 @@ private:
     bool m_local{false};
     QString m_locationName;
     quint8 m_messageType{MessageType::Unkown};
+    QJsonArray m_polygons;
     QString m_senderName;
     QDateTime m_sent;
     quint8 m_severity{Severity::SeverityUndefined};

@@ -14,11 +14,16 @@ int main(int argc, char *argv[])
     const auto uri = "org.nubecula.harbour.apocalypse";
 #endif
 
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QScopedPointer<QQuickView> v(SailfishApp::createView());
+
+    app->setApplicationVersion(APP_VERSION);
+    app->setApplicationName("Apocalypse");
 
     QCoreApplication::setApplicationVersion(APP_VERSION);
     QCoreApplication::setApplicationName(APP_TARGET);
-    QCoreApplication::setOrganizationName("nubecula.org");
-    QCoreApplication::setOrganizationDomain("nubecula.org");
+    QCoreApplication::setOrganizationName("org.nubecula");
+    QCoreApplication::setOrganizationDomain("org.nubecula");
 
     qmlRegisterType<CategoriesModel>(uri, 1, 0, "CategoriesModel");
     qmlRegisterType<Location>(uri, 1, 0, "Location");
@@ -43,5 +48,8 @@ int main(int argc, char *argv[])
         return provider;
     });
 
-    return SailfishApp::main(argc, argv);
+    v->setSource(SailfishApp::pathTo("qml/harbour-apocalypse.qml"));
+    v->show();
+
+    return app->exec();
 }

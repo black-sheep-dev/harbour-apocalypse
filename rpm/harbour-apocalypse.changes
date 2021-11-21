@@ -1,3 +1,10 @@
+* Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.0-1
+- Included Map functionality using Mapbox
+- Sailjail support
+- Code fixes and improvments
+- Code refactoring
+- UI fixes and improvements
+
 * Sun Jul 04 2021 Black Sheep <blacksheep@nubecula.org> 0.2.4-1
 - Fixed wrong category icon is showing on cover page
 - Directly open message when click the notification

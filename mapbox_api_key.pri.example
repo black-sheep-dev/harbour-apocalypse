@@ -1,0 +1,2 @@
+API_KEY = pk.eyJ1IjoiYmxhY2tzaGVlcGRldiIsImEiOiJja2xlJmg4aHYxdmpsfsdfsd45OWl4b3MzIn0.zRrjAfduef5cJoWIY0454A
+DEFINES += MAPBOX_API_KEY=\\\"$$API_KEY\\\"  

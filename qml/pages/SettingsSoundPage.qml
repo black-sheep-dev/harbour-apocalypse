@@ -30,8 +30,8 @@ Page {
                 text: qsTr("Play notifaction sound")
                 description: qsTr("When active the application will play a sound when new notification is available.")
 
-                onCheckedChanged: ServiceProvider.playSound = checked
-                Component.onCompleted: checked = ServiceProvider.playSound
+                onCheckedChanged: settings.playSound = checked
+                Component.onCompleted: checked = settings.playSound
             }
         }
     }

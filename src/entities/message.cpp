@@ -6,42 +6,47 @@ Message::Message(QObject *parent) :
 
 }
 
+const QRectF &Message::boundingBox() const
+{
+    return m_boundingBox;
+}
+
 quint32 Message::categories() const
 {
     return m_categories;
 }
 
-QString Message::contact() const
+const QString &Message::contact() const
 {
     return m_contact;
 }
 
-QString Message::description() const
+const QString &Message::description() const
 {
     return m_description;
 }
 
-QDateTime Message::expires() const
+const QDateTime &Message::expires() const
 {
     return m_expires;
 }
 
-QString Message::eventTitle() const
+const QString &Message::eventTitle() const
 {
     return m_eventTitle;
 }
 
-QString Message::headline() const
+const QString &Message::headline() const
 {
     return m_headline;
 }
 
-QString Message::identifier() const
+const QString &Message::identifier() const
 {
     return m_identifier;
 }
 
-QString Message::instruction() const
+const QString &Message::instruction() const
 {
     return m_instruction;
 }
@@ -51,7 +56,7 @@ bool Message::local() const
     return m_local;
 }
 
-QString Message::locationName() const
+const QString &Message::locationName() const
 {
     return m_locationName;
 }
@@ -61,12 +66,17 @@ quint8 Message::messageType() const
     return m_messageType;
 }
 
-QString Message::senderName() const
+const QJsonArray &Message::polygons() const
+{
+    return m_polygons;
+}
+
+const QString &Message::senderName() const
 {
     return m_senderName;
 }
 
-QDateTime Message::sent() const
+const QDateTime &Message::sent() const
 {
     return m_sent;
 }
@@ -81,14 +91,22 @@ quint8 Message::urgency() const
     return m_urgency;
 }
 
-QString Message::web() const
+const QString &Message::web() const
 {
     return m_web;
 }
 
-QDateTime Message::notified() const
+const QDateTime &Message::notified() const
 {
     return m_notified;
+}
+
+void Message::setBoundingBox(const QRectF &boundingBox)
+{
+    if (m_boundingBox == boundingBox)
+        return;
+    m_boundingBox = boundingBox;
+    emit boundingBoxChanged();
 }
 
 void Message::setCategories(quint32 categories)
@@ -188,6 +206,14 @@ void Message::setMessageType(quint8 messageType)
 
     m_messageType = messageType;
     emit messageTypeChanged(m_messageType);
+}
+
+void Message::setPolygons(const QJsonArray &polygons)
+{
+    if (m_polygons == polygons)
+        return;
+    m_polygons = polygons;
+    emit polygonsChanged();
 }
 
 void Message::setSenderName(const QString &senderName)

@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.2.4
+VERSION = 0.3.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -26,6 +26,8 @@ PKGCONFIG += \
 
 LIBS += -L../../lib -lkeepalive
 LIBS += -lz
+
+include(mapbox_api_key.pri)
 
 SOURCES += src/harbour-apocalypse.cpp \
     src/entities/location.cpp \
@@ -49,6 +51,7 @@ DISTFILES += qml/harbour-apocalypse.qml \
     qml/pages/MessagePage.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/ServiceListPage.qml \
+    qml/pages/SettingsMapboxPage.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsSoundPage.qml \
     qml/pages/SettingsUpdatePage.qml \
@@ -87,10 +90,13 @@ HEADERS += \
     src/service/serviceprovider.h \
     src/tools/messagehelper.h
 
-dbus.files = data/harbour.apocalypse.service
-dbus.path = $$INSTALL_ROOT/usr/share/dbus-1/services
+categoryIcons.files = icons/categories/*.svg
+categoryIcons.path = $$INSTALL_ROOT/usr/share/harbour-apocalypse/icons/categories
+
+coverBackground.files = icons/cover-background.svg
+coverBackground.path = $$INSTALL_ROOT/usr/share/harbour-apocalypse/images
 
 sound.files = data/siren.ogg
 sound.path = $$INSTALL_ROOT/usr/share/harbour-apocalypse/sounds
 
-INSTALLS += dbus sound
+INSTALLS += categoryIcons coverBackground sound

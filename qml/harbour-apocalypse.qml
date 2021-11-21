@@ -1,7 +1,9 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
+import Nemo.Configuration 1.0
 import Nemo.Notifications 1.0
+import Nemo.KeepAlive 1.2
 
 import "pages"
 
@@ -30,9 +32,35 @@ ApplicationWindow
         }
     }
 
+    ConfigurationGroup {
+        id: settings
+        path: "/apps/harbour-apocalypse"
+        synchronous: true
+
+        property bool autoUpdate: true
+        property string mapboxApiKey
+        property bool playSound: false
+        property int updateInterval: BackgroundJob.FiveMinutes
+    }
+
+    BackgroundJob {
+        enabled: settings.autoUpdate
+        frequency: settings.updateInterval
+        triggeredOnEnable: true
+
+        onTriggered: {
+            ServiceProvider.refresh()
+            console.log("update")
+            finished()
+        }
+    }
+
     initialPage: Component { OverviewPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
-    Component.onCompleted: ServiceProvider.initialize()
+    Component.onCompleted: {
+        ServiceProvider.playSound = settings.playSound
+        ServiceProvider.initialize()
+    }
 }

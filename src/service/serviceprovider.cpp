@@ -44,12 +44,16 @@ void ServiceProvider::initialize()
     refresh();
 
     m_initialized = true;
-    updateBackgroundActivity();
 }
 
 LocationModel *ServiceProvider::locationModel()
 {
     return m_locationModel;
+}
+
+QString ServiceProvider::mapboxApiKey()
+{
+    return QString(MAPBOX_API_KEY);
 }
 
 MessageModel *ServiceProvider::messageModel()
@@ -65,11 +69,6 @@ void ServiceProvider::saveSettings()
 ServiceModel *ServiceProvider::serviceModel()
 {
     return m_serviceModel;
-}
-
-bool ServiceProvider::autoUpdate() const
-{
-    return m_autoUpdate;
 }
 
 bool ServiceProvider::loading() const
@@ -92,11 +91,6 @@ bool ServiceProvider::playSound() const
     return m_playSound;
 }
 
-quint8 ServiceProvider::updateInterval() const
-{
-    return m_updateInterval;
-}
-
 void ServiceProvider::refresh()
 {
     //setLoading(true);
@@ -108,27 +102,6 @@ void ServiceProvider::refresh()
             continue;
 
         m_manager->get(getRequest(service->url()));
-    }
-}
-
-void ServiceProvider::setAutoUpdate(bool enable)
-{
-    if (m_autoUpdate == enable)
-        return;
-
-    m_autoUpdate = enable;
-    emit autoUpdateChanged(m_autoUpdate);
-
-    // functionality
-    if (m_autoUpdate) {
-        if (!m_activity) {
-            m_activity = new BackgroundActivity(this);
-            connect(m_activity, &BackgroundActivity::running, this, &ServiceProvider::onUpdateRequest);
-        }
-    } else {
-        m_activity->stop();
-        m_activity->deleteLater();
-        return;
     }
 }
 
@@ -163,20 +136,8 @@ void ServiceProvider::setPlaySound(bool playSound)
 {
     if (m_playSound == playSound)
         return;
-
     m_playSound = playSound;
-    emit playSoundChanged(m_playSound);
-}
-
-void ServiceProvider::setUpdateInterval(quint8 interval)
-{
-    if (m_updateInterval == interval)
-        return;
-
-    m_updateInterval = interval;
-    emit updateIntervalChanged(m_updateInterval);
-
-    updateBackgroundActivity();
+    emit playSoundChanged();
 }
 
 void ServiceProvider::onRequestFinished(QNetworkReply *reply)
@@ -245,20 +206,6 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
     m_messageModel->addMessages(messages);
 }
 
-void ServiceProvider::onUpdateRequest()
-{
-#ifdef QT_DEBUG
-    qDebug() << QStringLiteral("Background Job Update");
-#endif
-
-    if (!m_activity)
-        return;
-
-    refresh();
-
-    m_activity->wait(getUpdateInterval());
-}
-
 QNetworkRequest ServiceProvider::getRequest(const QString &url)
 {
     QNetworkRequest request(url);
@@ -269,39 +216,6 @@ QNetworkRequest ServiceProvider::getRequest(const QString &url)
     request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
     return request;
-}
-
-int ServiceProvider::getUpdateInterval() const
-{
-    int interval{0};
-
-    switch (m_updateInterval) {
-    case FiveMinutes:
-        interval = BackgroundActivity::FiveMinutes;
-        break;
-
-    case TenMinutes:
-        interval = BackgroundActivity::TenMinutes;
-        break;
-
-    case FifteenMinutes:
-        interval = BackgroundActivity::FifteenMinutes;
-        break;
-
-    case ThirtyMinutes:
-        interval = BackgroundActivity::ThirtyMinutes;
-        break;
-
-    case OneHour:
-        interval = BackgroundActivity::OneHour;
-        break;
-
-    default:
-        interval = BackgroundActivity::FifteenMinutes;
-        break;
-    }
-
-    return interval;
 }
 
 QByteArray ServiceProvider::gunzip(const QByteArray &data)
@@ -384,20 +298,6 @@ void ServiceProvider::notify(Message *msg)
     m_notifications.append(msg->identifier());
 }
 
-void ServiceProvider::updateBackgroundActivity()
-{
-    if (!m_initialized)
-        return;
-
-    if (!m_activity)
-        return;
-
-    if (m_activity->state() == BackgroundActivity::Waiting)
-        m_activity->stop();
-
-    m_activity->wait(getUpdateInterval());
-}
-
 void ServiceProvider::readServices()
 {
     QFile file(":/content/services.json");
@@ -439,13 +339,13 @@ void ServiceProvider::readServices()
 
 void ServiceProvider::readSettings()
 {
-    QSettings settings;
+    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/Apocalypse/apocalypse.conf";
 
-    settings.beginGroup(QStringLiteral("APP"));
-    setAutoUpdate(settings.value(QStringLiteral("auto_update"), false).toBool());
-    setUpdateInterval(quint8(settings.value(QStringLiteral("update_interval"), 0).toInt()));
-    setPlaySound(settings.value(QStringLiteral("play_sound"), true).toBool());
-    settings.endGroup();
+    if (!QFile(path).exists()) {
+           path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/harbour-apocalypse/harbour-apocalypse.conf";
+    }
+
+    QSettings settings(path, QSettings::NativeFormat);
 
     int size{0};
 
@@ -490,13 +390,7 @@ void ServiceProvider::readSettings()
 
 void ServiceProvider::writeSettings()
 {
-    QSettings settings;
-
-    settings.beginGroup(QStringLiteral("APP"));
-    settings.setValue(QStringLiteral("auto_update"), m_autoUpdate);
-    settings.setValue(QStringLiteral("update_interval"), m_updateInterval);
-    settings.setValue(QStringLiteral("play_sound"), m_playSound);
-    settings.endGroup();
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/Apocalypse/apocalypse.conf", QSettings::NativeFormat);
 
     settings.beginGroup(QStringLiteral("DATA"));
     settings.beginWriteArray(QStringLiteral("locations"));

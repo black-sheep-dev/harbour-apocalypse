@@ -319,6 +319,21 @@
     </message>
 </context>
 <context>
+    <name>SettingsMapboxPage</name>
+    <message>
+        <source>Mapbox</source>
+        <translation>Mapbox</translation>
+    </message>
+    <message>
+        <source>You can provide your own Mapbox API key. This helps to reduce the number of API calls with the implementen key.</source>
+        <translation>Du kannst deinen eigenen Mapbox API Schlüssel verwenden. Das hilft dabei die Anzahl der Aufrufe mit dem integrierten Schlüssel zu reduzieren.</translation>
+    </message>
+    <message>
+        <source>API Key</source>
+        <translation>API Schlüssel</translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <source>Services</source>
@@ -355,6 +370,14 @@
     <message>
         <source>Notification Sound</source>
         <translation>Hinweiston</translation>
+    </message>
+    <message>
+        <source>Mapbox</source>
+        <translation>Mapbox</translation>
+    </message>
+    <message>
+        <source>Manage Mapbox API Key</source>
+        <translation>Verwalte Mapbox API Schlüssel</translation>
     </message>
 </context>
 <context>

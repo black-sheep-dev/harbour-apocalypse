@@ -39,16 +39,17 @@ Page {
         header: PageHeader {
             title: qsTr("All Messages")
         }
+
         delegate: ListItem {
             id: delegate
 
             width: parent.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: contentRow.height + 2*Theme.paddingSmall
 
             Row {
+                id: contentRow
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * x
-                height: parent.height
                 spacing: Theme.paddingMedium
                 anchors.verticalCenter: parent.verticalCenter
 
@@ -61,8 +62,6 @@ Page {
                     width: Theme.itemSizeSmall
                     height: width
 
-                    anchors.verticalCenter: parent.verticalCenter
-
                     sourceSize.width: 256
                     sourceSize.height: 256
 
@@ -71,19 +70,21 @@ Page {
 
                 Column {
                     width: parent.width - itemIcon.width - Theme.paddingMedium
-                    anchors.verticalCenter: itemIcon.verticalCenter
 
                     Label {
                         width: parent.width
                         text: event_title.toUpperCase()
                         color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                        font.pixelSize: Theme.fontSizeMedium
+                        font.pixelSize: Theme.fontSizeSmall
+                        font.bold: true
+                        wrapMode: Text.Wrap
                     }
                     Label {
+                        width: parent.width
                         text: sender_name
-
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeExtraSmall
+                        wrapMode: Text.Wrap
                     }
                 }
             }

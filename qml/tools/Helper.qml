@@ -27,21 +27,21 @@ Item {
 
         // retrun icons
         if ((categories & Message.CategoryFire) === Message.CategoryFire)
-            return "qrc:/icons/category-fire" + suffix
+            return "/usr/share/harbour-apocalypse/icons/categories/category-fire" + suffix + ".svg"
 
         if ((categories & Message.CategoryHealth) === Message.CategoryHealth)
-            return "qrc:/icons/category-health" + suffix
+            return "/usr/share/harbour-apocalypse/icons/categories/category-health" + suffix + ".svg"
 
         if ((categories & Message.CategoryMet) === Message.CategoryMet)
-            return "qrc:/icons/category-meteorology" + suffix
+            return "/usr/share/harbour-apocalypse/icons/categories/category-meteorology" + suffix + ".svg"
 
         if ((categories & Message.CategorySecurity) === Message.CategorySecurity)
-            return "qrc:/icons/category-security" + suffix
+            return "/usr/share/harbour-apocalypse/icons/categories/category-security" + suffix + ".svg"
 
         if ((categories & Message.CategorySafety) === Message.CategorySafety)
-            return "qrc:/icons/category-safety" + suffix
+            return "/usr/share/harbour-apocalypse/icons/categories/category-safety" + suffix + ".svg"
 
-        return "qrc:/icons/category-info" + suffix
+        return "/usr/share/harbour-apocalypse/icons/categories/category-info" + suffix + ".svg"
     }
 
     function getSeverityColor(severity) {

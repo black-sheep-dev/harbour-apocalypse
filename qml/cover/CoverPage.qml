@@ -15,7 +15,7 @@ CoverBackground {
         width: parent.width
         height: sourceSize.height * width / sourceSize.width
         smooth: true
-        source: "qrc:///cover/cover-background"
+        source: "/usr/share/harbour-apocalypse/images/cover-background.svg"
         opacity: 0.1
     }
 
@@ -134,11 +134,6 @@ CoverBackground {
 
     CoverActionList {
         id: coverAction
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-refresh"
-            onTriggered: console.log(listView.count)
-        }
 
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
