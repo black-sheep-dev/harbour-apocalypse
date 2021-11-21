@@ -1,3 +1,7 @@
+* Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.1-1
+- Bugfixes
+- UI fixes
+
 * Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.0-1
 - Included Map functionality using Mapbox
 - Sailjail support
