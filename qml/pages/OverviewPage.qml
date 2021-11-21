@@ -31,10 +31,6 @@ Page {
                 onClicked: pageStack.animatorPush(Qt.resolvedUrl("SettingsPage.qml"))
             }
             MenuItem {
-                text: qsTr("All Messages")
-                onClicked: pageStack.animatorPush(Qt.resolvedUrl("MessageListPage.qml"))
-            }
-            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: ServiceProvider.refresh();
             }
@@ -60,69 +56,57 @@ Page {
             id: delegate
 
             width: parent.width
-            contentHeight: contentColumn.height
+            contentHeight: contentRow.height + 2*Theme.paddingSmall
 
-            Column {
-                id: contentColumn
-                width: parent.width
-                spacing: Theme.paddingSmall
+            Row {
+                id: contentRow
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                spacing: Theme.paddingMedium
+                anchors.verticalCenter: parent.verticalCenter
 
-                Row {
-                    id: contentRow
-                    x: Theme.horizontalPageMargin
-                    width: parent.width - 2 * x
-                    spacing: Theme.paddingMedium
+                Image {
+                    id: itemIcon
+                    smooth: true
 
-                    Image {
-                        id: itemIcon
-                        smooth: true
+                    opacity: 0.4
 
-                        opacity: 0.4
+                    width: Theme.itemSizeSmall
+                    height: width
 
-                        width: Theme.itemSizeSmall
-                        height: width
+                    sourceSize.width: 256
+                    sourceSize.height: 256
 
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        sourceSize.width: 256
-                        sourceSize.height: 256
-
-                        source: helper.getCategoryIcon(categories, severity)
-                    }
-
-                    Column {
-                        width: parent.width - itemIcon.width - Theme.paddingMedium
-                        anchors.verticalCenter: itemIcon.verticalCenter
-
-                        Label {
-                            width: parent.width
-                            text: model.locationName
-                            font.pixelSize: Theme.fontSizeSmall
-                        }
-                        Label {
-                            width: parent.width
-                            text: event_title.toUpperCase()
-                            color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                            font.pixelSize: Theme.fontSizeMedium
-                            wrapMode: Text.Wrap
-                        }
-                        Label {
-                            text: sender_name
-
-                            color: Theme.secondaryColor
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            wrapMode: Text.Wrap
-                        }
-
-                    }
+                    source: helper.getCategoryIcon(categories, severity)
                 }
-                Item {
-                    visible: index < (listView.count - 1)
-                    width: parent.width
-                    height: 1
+
+                Column {
+                    width: parent.width - itemIcon.width - Theme.paddingMedium
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        width: parent.width
+                        text: model.locationName
+                        font.pixelSize: Theme.fontSizeSmall
+                        wrapMode: Text.Wrap
+                    }
+                    Label {
+                        width: parent.width
+                        text: event_title.toUpperCase()
+                        color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
+                        font.pixelSize: Theme.fontSizeSmall
+                        font.bold: true
+                        wrapMode: Text.Wrap
+                    }
+                    Label {
+                        width: parent.width
+                        text: sender_name
+                        color: Theme.secondaryColor
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        wrapMode: Text.Wrap
+                    }
                 }
             }
-
             onClicked: pageStack.animatorPush(Qt.resolvedUrl("MessagePage.qml"), { msg: ServiceProvider.messageModel().messageAt(idx) })
         }
 
@@ -134,4 +118,6 @@ Page {
 
         VerticalScrollDecorator {}
     }
+
+    onStatusChanged: if (status === PageStatus.Active) pageStack.pushAttached(Qt.resolvedUrl("MessageListPage.qml"))
 }

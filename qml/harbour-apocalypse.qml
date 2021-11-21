@@ -50,7 +50,6 @@ ApplicationWindow
 
         onTriggered: {
             ServiceProvider.refresh()
-            console.log("update")
             finished()
         }
     }
