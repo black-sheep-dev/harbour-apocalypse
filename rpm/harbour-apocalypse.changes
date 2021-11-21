@@ -1,3 +1,6 @@
+* Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.2-1
+- Fixed bug not able to add new locations
+
 * Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.1-1
 - Bugfixes
 - UI fixes

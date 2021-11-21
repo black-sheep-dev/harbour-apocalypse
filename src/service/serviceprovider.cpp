@@ -19,8 +19,6 @@
 
 #include <zlib.h>
 
-constexpr quint16 REQUEST_QUEUE_TIMEOUT = 500;
-
 ServiceProvider::ServiceProvider(QObject *parent) :
     QObject(parent)
 {

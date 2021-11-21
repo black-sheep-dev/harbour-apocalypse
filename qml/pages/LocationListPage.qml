@@ -13,7 +13,7 @@ Page {
             MenuItem {
                 text: qsTr("Add Location")
                 onClicked: {
-                    var dialog = pageStack.animatorPush(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {edit: false})
+                    var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {edit: false})
 
                     dialog.accepted.connect(function () {
                         ServiceProvider.locationModel().addLocation(dialog.name, dialog.latitude, dialog.longitude)
@@ -40,7 +40,7 @@ Page {
                 MenuItem {
                     text: qsTr("Edit");
                     onClicked: {
-                        var dialog = pageStack.animatorPush(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {
+                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/LocationEditDialog.qml"), {
                                                         edit: true,
                                                         name: name,
                                                         latitude: latitude,
@@ -57,14 +57,12 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Delete");
-                    onClicked: remorse.execute(delegate, qsTr("Deleting location"), function() {
+                    onClicked: delegate.remorseAction(qsTr("Deleting location"), function() {
                         ServiceProvider.locationModel().removeLocation(index)
-                        ServiceProvider.saveSettings();
+                        ServiceProvider.saveSettings()
                     })
                 }
             }
-
-            RemorseItem { id: remorse }
 
             Row {
                 x: Theme.horizontalPageMargin
@@ -102,7 +100,6 @@ Page {
                     }
                 }
             }
-            onClicked: console.log("Clicked " + index)
         }
 
         ViewPlaceholder {
