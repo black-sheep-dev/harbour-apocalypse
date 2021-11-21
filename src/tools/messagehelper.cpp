@@ -117,7 +117,7 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
     // string data
     const QString event = info.value(QStringLiteral("event")).toString();
 
-    bool number;
+    bool number{false};
     event.toInt(&number);
 
     if (number) {
