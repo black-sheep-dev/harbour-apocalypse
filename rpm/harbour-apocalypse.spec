@@ -71,8 +71,5 @@ desktop-file-install --delete-original       \
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/harbour-apocalypse/sounds/*
-%{_datadir}/harbour-apocalypse/images/*
-%{_datadir}/harbour-apocalypse/icons/*
 # >> files
 # << files
