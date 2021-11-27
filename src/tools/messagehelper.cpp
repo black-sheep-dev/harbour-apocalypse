@@ -182,7 +182,7 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
                 const float lat = location.last().toFloat();
                 const float lon = location.first().toFloat();
 
-                if (lat == 0.0 && lon == 0.0)
+                if (lat < 45.0)
                     continue;
 
                 poly.append(QPointF(lat, lon));
@@ -201,13 +201,13 @@ bool MessageHelper::parseMessage(const QJsonObject &obj, Message *msg)
             localPolygons.append(localPolygon);
             boundingRect = boundingRect.united(poly.boundingRect());
 
-#ifdef QT_DEBUG
+
             if (!poly.isClosed()) {
+#ifdef QT_DEBUG
                 qDebug() << QStringLiteral("POLYGON CLOSED: ") << poly.isClosed();
-                qDebug() << poly.first();
-                qDebug() << poly.last();
-            }
 #endif
+                poly.append(poly.first());
+            }
             i++;
 
             // location

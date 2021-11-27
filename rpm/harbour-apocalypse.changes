@@ -1,3 +1,6 @@
+* Sat Nov 27 2021 Black Sheep <blacksheep@nubecula.org> 0.3.3-1
+- Add filter to remove bad points from polygons in map view
+
 * Sun Nov 21 2021 Black Sheep <blacksheep@nubecula.org> 0.3.2-1
 - Fixed bug not able to add new locations
 
