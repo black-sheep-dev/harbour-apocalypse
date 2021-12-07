@@ -91,15 +91,22 @@ bool ServiceProvider::playSound() const
 
 void ServiceProvider::refresh()
 {
-    //setLoading(true);
+    if (m_loading == true) {
+        return;
+    }
 
-    m_messageModel->reset();
+    setLoading(true);
+
+    qDeleteAll(m_messageBuffer.begin(), m_messageBuffer.end());
+    m_messageBuffer.clear();
+    m_requestQueue.clear();
 
     for (const auto service : m_serviceModel->services()) {
         if (!service->active())
             continue;
 
         m_manager->get(getRequest(service->url()));
+        m_requestQueue.append(service->url());
     }
 }
 
@@ -144,6 +151,11 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
     if (!reply)
         return;
 
+    m_requestQueue.removeAll(reply->url().toString());
+    if (m_requestQueue.isEmpty()) {
+        setLoading(false);
+    }
+
     if (reply->error()) {
 #ifdef QT_DEBUG
         qDebug() << reply->errorString();
@@ -180,7 +192,6 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
     qDebug() << QStringLiteral("JSON ARRAY ITEMS: ") << array.count();
 #endif
 
-    QList<Message *> messages;
     for (const QJsonValue &item : array) {
         auto msg = new Message;
         bool ok = m_messageHelper->parseMessage(item.toObject(), msg);
@@ -194,14 +205,14 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
             notify(msg);
         }
 
-        messages.append(msg);
+        m_messageBuffer.append(msg);
     }
 
-#ifdef QT_DEBUG
-    qDebug() << QStringLiteral("Parsed Messages: ") << messages.count();
-#endif
-
-    m_messageModel->addMessages(messages);
+    // update model
+    if (m_requestQueue.isEmpty()) {
+        m_messageModel->setMessages(m_messageBuffer);
+        m_messageBuffer.clear();
+    }
 }
 
 QNetworkRequest ServiceProvider::getRequest(const QString &url)

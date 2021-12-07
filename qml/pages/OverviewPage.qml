@@ -22,6 +22,7 @@ Page {
 
     SilicaListView {
         PullDownMenu {
+            busy: ServiceProvider.loading
             MenuItem {
                 text: qsTr("About")
                 onClicked: pageStack.animatorPush(Qt.resolvedUrl("AboutPage.qml"))

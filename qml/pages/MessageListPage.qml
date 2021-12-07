@@ -22,6 +22,7 @@ Page {
 
     SilicaListView {
         PullDownMenu {
+            busy: ServiceProvider.loading
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: ServiceProvider.refresh();

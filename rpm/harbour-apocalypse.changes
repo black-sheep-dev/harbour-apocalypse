@@ -1,3 +1,6 @@
+* Sat Nov 27 2021 Black Sheep <blacksheep@nubecula.org> 0.3.4-1
+- Delete old message when refresh operation is finished / keep it when refresh fails
+
 * Sat Nov 27 2021 Black Sheep <blacksheep@nubecula.org> 0.3.3-1
 - Add filter to remove bad points from polygons in map view
 

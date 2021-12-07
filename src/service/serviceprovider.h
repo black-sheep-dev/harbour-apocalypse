@@ -82,9 +82,11 @@ private:
     bool m_initialized{false};
     LocationModel *m_locationModel{new LocationModel(this)};
     QNetworkAccessManager *m_manager{new QNetworkAccessManager(this)};
+    QList<Message *> m_messageBuffer;
     MessageHelper *m_messageHelper{nullptr};
     MessageModel *m_messageModel{new MessageModel(this)};
     QStringList m_notifications;
+    QStringList m_requestQueue;
     ServiceModel *m_serviceModel{new ServiceModel(this)};
 
     // properties
