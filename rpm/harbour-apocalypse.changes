@@ -1,3 +1,7 @@
+* Sat Jan 08 2022 Black Sheep <blacksheep@nubecula.org> 0.3.5-1
+- Bugfixes
+- Cleanup
+
 * Tue Dec 07 2021 Black Sheep <blacksheep@nubecula.org> 0.3.4-1
 - Delete old message when refresh operation is finished / keep it when refresh fails
 

@@ -9,7 +9,7 @@ Name:       harbour-apocalypse
 # << macros
 
 Summary:    Apocalypse
-Version:    0.3.4
+Version:    0.3.5
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
@@ -29,10 +29,27 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(Qt5Location)
 BuildRequires:  pkgconfig(nemonotifications-qt5)
+BuildRequires:  pkgconfig(keepalive)
+BuildRequires:  qt5-qttools-linguist
 BuildRequires:  desktop-file-utils
 
 %description
 Apocalypse is an application for showing and notify of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.
+
+%if "%{?vendor}" == "chum"
+PackageName: Apocalypse
+Type: desktop-application
+Categories:
+  - Other
+Custom:
+  Repo: https://github.com/black-sheep-dev/harbour-apocalypse/
+Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/main/icons/harbour-apocalypse.svg
+Screenshots:
+  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot1.png
+  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot2.png
+Url:
+ Donation: https://www.paypal.com/paypalme/nubecula/1
+%endif
 
 
 %prep

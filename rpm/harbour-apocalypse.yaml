@@ -1,6 +1,6 @@
 Name: harbour-apocalypse
 Summary: Apocalypse
-Version: 0.3.4
+Version: 0.3.5
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -13,6 +13,22 @@ Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
   Apocalypse is an application for showing and notify of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.
+
+  %if "%{?vendor}" == "chum"
+  PackageName: Apocalypse
+  Type: desktop-application
+  Categories:
+    - Other
+  Custom:
+    Repo: https://github.com/black-sheep-dev/harbour-apocalypse/
+  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/main/icons/harbour-apocalypse.svg
+  Screenshots:
+    - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot1.png
+    - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot2.png
+  Url:
+   Donation: https://www.paypal.com/paypalme/nubecula/1
+  %endif
+
 Builder: qmake5
 
 # This section specifies build dependencies that are resolved using pkgconfig.
@@ -25,10 +41,11 @@ PkgConfigBR:
   - Qt5Positioning
   - Qt5Location
   - nemonotifications-qt5
+  - keepalive
 
 # Build dependencies without a pkgconfig setup can be listed here
-# PkgBR:
-#   - package-needed-to-build
+PkgBR:
+  - qt5-qttools-linguist
 
 # Runtime dependencies which are not automatically detected
 Requires:

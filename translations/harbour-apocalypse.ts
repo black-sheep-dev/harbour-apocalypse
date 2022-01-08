@@ -24,10 +24,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Give star</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If you like my work why not buy me a beer?</source>
         <translation type="unfinished"></translation>
     </message>
