@@ -14,10 +14,6 @@ I noticed that not all send messages are available over the used API. It seems t
 
 Still you can miss the apocalypse so!
 
-## Version 0.3+
-Starting with Version 0.3 the application needs at least SailfishOS 4.2.
-If you use an older version of SailfishOS use app version 0.2.4 instead
-
 ## Requirements (0.3+)
 - You need to enable the repository of rinigus to install the Mapbox GL Native QML component for map display or simply install PureMaps.
 
