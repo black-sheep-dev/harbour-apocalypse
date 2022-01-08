@@ -45,8 +45,8 @@ Custom:
   Repo: https://github.com/black-sheep-dev/harbour-apocalypse/
 Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/main/icons/harbour-apocalypse.svg
 Screenshots:
-  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot1.png
-  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/metadata/screenshot2.png
+  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/master/metadata/screenshot1.png
+  - https://github.com/black-sheep-dev/harbour-apocalypse/raw/master/metadata/screenshot2.png
 Url:
  Donation: https://www.paypal.com/paypalme/nubecula/1
 %endif
