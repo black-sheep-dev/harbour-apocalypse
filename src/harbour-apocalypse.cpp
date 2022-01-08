@@ -18,12 +18,9 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> v(SailfishApp::createView());
 
     app->setApplicationVersion(APP_VERSION);
-    app->setApplicationName("Apocalypse");
-
-    QCoreApplication::setApplicationVersion(APP_VERSION);
-    QCoreApplication::setApplicationName(APP_TARGET);
-    QCoreApplication::setOrganizationName("org.nubecula");
-    QCoreApplication::setOrganizationDomain("org.nubecula");
+    app->setApplicationName("apocalypse");
+    app->setOrganizationName("org.nubecula");
+    app->setOrganizationDomain("org.nubecula");
 
     qmlRegisterType<CategoriesModel>(uri, 1, 0, "CategoriesModel");
     qmlRegisterType<Location>(uri, 1, 0, "Location");

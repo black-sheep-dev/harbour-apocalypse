@@ -165,11 +165,7 @@ void ServiceProvider::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
-    const QByteArray raw = reply->readAll();
-
-    QByteArray data = gunzip(raw);
-    if (data.isEmpty())
-        data = raw;
+    const QByteArray data = gunzip(reply->readAll());
 
     QJsonParseError error{};
 
@@ -230,7 +226,7 @@ QNetworkRequest ServiceProvider::getRequest(const QString &url)
 QByteArray ServiceProvider::gunzip(const QByteArray &data)
 {
     if (data.size() <= 4) {
-        return QByteArray();
+        return data;
     }
 
     QByteArray result;
@@ -249,7 +245,7 @@ QByteArray ServiceProvider::gunzip(const QByteArray &data)
 
     ret = inflateInit2(&strm, 15 +  32); // gzip decoding
     if (ret != Z_OK)
-        return QByteArray();
+        return data;
 
     // run inflate()
     do {
@@ -265,7 +261,7 @@ QByteArray ServiceProvider::gunzip(const QByteArray &data)
         case Z_DATA_ERROR:
         case Z_MEM_ERROR:
             (void)inflateEnd(&strm);
-            return QByteArray();
+            return data;
         }
 
         result.append(out, CHUNK_SIZE - strm.avail_out);
@@ -348,7 +344,7 @@ void ServiceProvider::readServices()
 
 void ServiceProvider::readSettings()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/Apocalypse/apocalypse.conf";
+    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/apocalypse/apocalypse.conf";
 
     if (!QFile(path).exists()) {
            path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/harbour-apocalypse/harbour-apocalypse.conf";
@@ -399,7 +395,7 @@ void ServiceProvider::readSettings()
 
 void ServiceProvider::writeSettings()
 {
-    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/Apocalypse/apocalypse.conf", QSettings::NativeFormat);
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/org.nubecula/apocalypse/apocalypse.conf", QSettings::NativeFormat);
 
     settings.beginGroup(QStringLiteral("DATA"));
     settings.beginWriteArray(QStringLiteral("locations"));

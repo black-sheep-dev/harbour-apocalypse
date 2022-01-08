@@ -1,19 +1,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Nemo.DBus 2.0
 
 Page {
     id: page
 
     allowedOrientations: Orientation.All
-
-    DBusInterface {
-            id: sailHubInterface
-
-            service: "harbour.sailhub.service"
-            iface: "harbour.sailhub.service"
-            path: "/harbour/sailhub/service"
-        }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -99,15 +90,6 @@ Page {
                     }
                 }
                 onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/harbour-apocalypse")
-            }
-
-            ButtonLayout {
-                width: parent.width
-
-                Button {
-                    text: qsTr("Give star")
-                    onClicked: sailHubInterface.call("addStar", ["black-sheep-dev", "harbour-apocalypse"])
-                }
             }
 
             SectionHeader{

@@ -1,12 +1,13 @@
 [Desktop Entry]
 Type=Application
+X-Nemo-Application-Type=silica-qt5
 Icon=harbour-apocalypse
-Exec=sailjail -p harbour-apocalypse.desktop /usr/bin/harbour-apocalypse
+Exec=harbour-apocalypse
 Name=Apocalypse
 Name[de]=Apokalypse
 
 [X-Sailjail]
 OrganizationName=org.nubecula
-ApplicationName=Apocalypse
+ApplicationName=apocalypse
 Permissions=Internet;Audio;Location
 ExecDBus=/usr/bin/harbour-apocalypse -prestart
