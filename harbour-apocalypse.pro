@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.3.4
+VERSION = 0.3.5
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -19,12 +19,12 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
 CONFIG += sailfishapp
 
-QT += dbus positioning location
+QT += positioning location
 
 PKGCONFIG += \
-    nemonotifications-qt5
+    nemonotifications-qt5 \
+    keepalive
 
-LIBS += -L../../lib -lkeepalive
 LIBS += -lz
 
 include(mapbox_api_key.pri)

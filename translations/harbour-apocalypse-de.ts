@@ -24,10 +24,6 @@
         <translation>Apokalypse ist eine Anwendung zum Anzeigen und Benachrichtigen von Warnungen von deutschen Warndienste wie DWD, MOWAS, BIWAPP and KATWARN.</translation>
     </message>
     <message>
-        <source>Give star</source>
-        <translation>Stern vergeben</translation>
-    </message>
-    <message>
         <source>If you like my work why not buy me a beer?</source>
         <translation>Wenn Du meine Arbeit magst, warum gibst du mir nicht einfach ein Bier aus?</translation>
     </message>
