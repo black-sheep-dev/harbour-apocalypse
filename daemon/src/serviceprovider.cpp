@@ -252,8 +252,6 @@ void ServiceProvider::refresh()
         return;
     }
 
-    qDebug() << "Refresh";
-
     // set loading
     m_loading = true;
     emit loadingChanged();

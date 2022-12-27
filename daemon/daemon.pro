@@ -1,6 +1,6 @@
 TARGET = harbour-apocalypse-daemon
 
-VERSION = 0.4.0-1
+VERSION = 0.4.1-1
 DEFINES += APP_VERSION=\"\\\"$$VERSION\\\"\"
 DEFINES += APP_NAME=\"\\\"$$TARGET\\\"\"
 
