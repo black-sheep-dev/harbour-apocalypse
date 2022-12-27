@@ -8,17 +8,19 @@ Never miss the apocalypse in Germany again!
 
 ## Current state of development
 
-The development is in alpha state at the moment. At the moment you can only read messages. There are no notifications yet! 
-
-I noticed that not all send messages are available over the used API. It seems there are other channels the original apps use. Needs more investigation...
+The development is in beta state at the moment.
+I noticed that not all send messages are available over the used APIs. It seems there are other channels the original apps use. Needs more investigation...
 
 Still you can miss the apocalypse so!
 
-## Requirements (0.3+)
+## Requirements (0.3.0+)
 - You need to enable the repository of rinigus to install the Mapbox GL Native QML component for map display or simply install PureMaps.
 
 ## Map View
 If you have a own Mapbox API Key please use this. You can provide it in the application settings.
+
+## Background Daemon (0.4.1)
+Since version 0.4.0 there is a daemon running in the background. The app doesn't need to be open to get notifications any more
 
 ## Implemented Features
 Here is a list of all implemented features so far.
@@ -30,13 +32,19 @@ Here is a list of all implemented features so far.
 - Location dependent messages
 - Activate/Deactivate service
 - Automatic refreshs (deactivated by default)
-- Notifications (no real push notofication!)
+- Notifications (no real push notification!)
 - Show messages on actual position
 - Map View
-- 
+- Background daemon (0.4.0+)
+
+
 ## Planned Features
 
 - Feature requests
+
+## Social Media
+
+Follow this project on [Mastodon](https://social.nubecula.org/@apocalypse)
 
 ## Donations
 

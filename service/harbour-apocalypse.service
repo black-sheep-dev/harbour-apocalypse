@@ -1,0 +1,9 @@
+[Unit]
+Description=Apocalypse daemon
+After=pre-user-session.target
+
+[Service]
+ExecStart=/usr/bin/harbour-apocalypse-daemon
+
+[Install]
+WantedBy=user-session.target

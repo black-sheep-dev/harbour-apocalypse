@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-apocalypse
+Exec=sailfish-qml harbour-apocalypse
+Name=Apocalypse
+Name[de]=Apokalypse
+
+[X-Sailjail]
+Sandboxing=Disabled
+# Replace with your organization as a reverse domain name
+#OrganizationName=org.nubecula.org
+# ApplicationName does not have to be identical to Name
+#ApplicationName=apocalypse
+# Add the required permissions here
+#Permissions=Internet
