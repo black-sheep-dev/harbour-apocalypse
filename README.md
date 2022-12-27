@@ -3,7 +3,7 @@
 Apocalypse is an application for showing of messages from german warning services like DWD, MOWAS, BIWAPP and KATWARN.
 Never miss the apocalypse in Germany again!
 
->![](icons/128x128/harbour-apocalypse.png)
+>![](app/icons/128x128/harbour-apocalypse.png)
 
 
 ## Current state of development
