@@ -1,3 +1,7 @@
+* Tue Dec 27 2022 Black Sheep <blacksheep@nubecula.org> 0.4.0-1
+- Code refactoring
+- Add background daemon
+
 * Sun Feb 06 2022 Black Sheep <blacksheep@nubecula.org> 0.3.6-1
 - Changes for sailfishos:chum release
 
