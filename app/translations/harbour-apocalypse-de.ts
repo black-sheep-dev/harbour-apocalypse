@@ -376,8 +376,8 @@
         <translation>Wenn aktiviert wird die Anwendung in einem definierten Intervall eine Aktualisierung der Meldungen durchführen.</translation>
     </message>
     <message id="id-update-interval">
-        <source></source>
-        <translation></translation>
+        <source>Update interval (minutes)</source>
+        <translation type="unfinished">Update Intervall (Minuten)</translation>
     </message>
     <message id="id-play-sound">
         <source>Play notifaction sound</source>

@@ -53,7 +53,7 @@
     </message>
     <message id="id-longitude">
         <source>id-longitude</source>
-        <translation>id-longitude</translation>
+        <translation>Longitude</translation>
     </message>
     <message id="id-about">
         <source>About</source>
@@ -377,7 +377,7 @@
     </message>
     <message id="id-update-interval">
         <source>Update interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Update interval (minutes)</translation>
     </message>
     <message id="id-play-sound">
         <source>Play notifaction sound</source>

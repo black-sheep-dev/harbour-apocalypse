@@ -16,13 +16,16 @@ static const QByteArray MAPBOX_API_KEY = "AAAAYXicK8jWS630MvTMys+MzK3IiDQqqUp0D8
 ServiceProvider::ServiceProvider(QObject *parent) :
     QDBusAbstractAdaptor(parent)
 {
-    connect(m_api, &ApiInterface::messagesAvailable, this, &ServiceProvider::parseMessages);
-
     readServices();
     readSettings();
 
+    connect(m_api, &ApiInterface::messagesAvailable, this, &ServiceProvider::parseMessages);
+
     if (!m_autoUpdate) {
         refresh();
+    } else {
+        m_backgroundJob->run();
+        m_backgroundJob->wait();
     }
 }
 
@@ -53,7 +56,6 @@ void ServiceProvider::setAutoUpdate(bool enable)
             connect(m_backgroundJob, &BackgroundActivity::running, this, &ServiceProvider::refresh);
 
             m_backgroundJob->setWakeupFrequency(BackgroundActivity::Frequency(m_updateInterval));
-            m_backgroundJob->run();
         }
     } else {
         m_backgroundJob->deleteLater();
@@ -250,6 +252,8 @@ void ServiceProvider::refresh()
         return;
     }
 
+    qDebug() << "Refresh";
+
     // set loading
     m_loading = true;
     emit loadingChanged();
@@ -284,6 +288,10 @@ void ServiceProvider::test()
 
 void ServiceProvider::parseMessages(const QString &url, const QJsonArray &msgs)
 {
+    if (m_backgroundJob != nullptr) {
+        m_backgroundJob->wait();
+    }
+
     int ret = m_requestQueue.removeAll(url);
 
     if (m_requestQueue.isEmpty()) {
