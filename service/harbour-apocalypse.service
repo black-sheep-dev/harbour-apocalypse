@@ -4,6 +4,8 @@ After=pre-user-session.target
 
 [Service]
 ExecStart=/usr/bin/harbour-apocalypse-daemon
+Restart=on-failure
+RestartSec=1s
 
 [Install]
 WantedBy=user-session.target
