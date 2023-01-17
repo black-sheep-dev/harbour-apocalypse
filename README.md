@@ -40,6 +40,7 @@ Here is a list of all implemented features so far.
 
 ## Planned Features
 
+- Switch to offical NINA API
 - Feature requests
 
 ## Social Media
