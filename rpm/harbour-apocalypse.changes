@@ -1,4 +1,4 @@
-* Tue Jan 17 2022 Black Sheep <blacksheep@nubecula.org> 0.4.2-1
+* Tue Jan 17 2023 Black Sheep <blacksheep@nubecula.org> 0.4.2-1
 - Fixed refresh interval not showing properly in settings
 - Add autorestart of service on failure / crash
 
