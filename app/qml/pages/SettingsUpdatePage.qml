@@ -60,31 +60,6 @@ Page {
                 //% "Update interval (minutes)"
                 label: qsTrId("id-update-interval")
 
-                currentIndex: {
-                    switch (dbusSerivce.getProperty("updateInterval")) {
-                    case BackgroundJob.TwoAndHalfMinutes:
-                        return 0
-
-                    case BackgroundJob.FiveMinutes:
-                        return 1
-
-                    case BackgroundJob.TenMinutes:
-                        return 2
-
-                    case BackgroundJob.FifteenMinutes:
-                        return 3
-
-                    case BackgroundJob.ThirtyMinutes:
-                        return 4
-
-                    case BackgroundJob.OneHour:
-                        return 5
-
-                    default:
-                        return 0
-                    }
-                }
-
                 menu: ContextMenu {
                     MenuItem {
                         text: "2.5"
@@ -103,6 +78,40 @@ Page {
                     }
                     MenuItem {
                         text: "60"
+                    }
+                }
+
+                Component.onCompleted: {
+                    const interval = dbusService.getProperty("updateInterval")
+
+                    switch (interval) {
+                    case BackgroundJob.TwoAndHalfMinutes:
+                        currentIndex = 0
+                        break
+
+                    case BackgroundJob.FiveMinutes:
+                        currentIndex = 1
+                        break
+
+                    case BackgroundJob.TenMinutes:
+                        currentIndex = 2
+                        break
+
+                    case BackgroundJob.FifteenMinutes:
+                        currentIndex = 3
+                        break
+
+                    case BackgroundJob.ThirtyMinutes:
+                        currentIndex = 4
+                        break
+
+                    case BackgroundJob.OneHour:
+                        currentIndex = 5
+                        break
+
+                    default:
+                        currentIndex = 0
+                        break
                     }
                 }
             }
