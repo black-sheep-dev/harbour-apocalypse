@@ -4,8 +4,6 @@ import Sailfish.Silica 1.0
 import "../."
 
 Page {
-    readonly property string appId: "harbour-apocalypse"
-
     id: page
 
     allowedOrientations: Orientation.All
@@ -26,7 +24,7 @@ Page {
 
             Image {
                 id: logo
-                source: "/usr/share/" + appId + "/icons/" + appId + ".svg"
+                source: "/usr/share/" + Global.appId + "/icons/" + Global.appId + ".svg"
                 smooth: true
                 sourceSize.width: parent.width / 2
                 sourceSize.height: parent.width / 2
@@ -80,7 +78,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.height * 0.8
                         height: width
-                        source: "/usr/share/" + appId + "/icons/mastodon.svg"
+                        source: "/usr/share/" + Global.appId + "/icons/mastodon.svg"
                     }
 
                     Label{
@@ -115,7 +113,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.height * 0.8
                         height: width
-                        source: "/usr/share/" + appId + "/icons/mastodon.svg"
+                        source: "/usr/share/" + Global.appId + "/icons/mastodon.svg"
                     }
 
                     Label{
@@ -154,7 +152,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.height * 0.8
                         height: width
-                        source: "/usr/share/" + appId + "/icons/github.svg"
+                        source: "/usr/share/" + Global.appId + "/icons/github.svg"
                     }
 
                     Label{
@@ -163,12 +161,12 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
 
-                        text: "https://github.com/black-sheep-dev/" + appId
+                        text: "https://github.com/black-sheep-dev/" + Global.appId
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
 
                     }
                 }
-                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/"  + appId)
+                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/"  + Global.appId)
             }
 
             SectionHeader{
@@ -202,7 +200,7 @@ Page {
                         width: parent.height * 0.8
                         height: width
                         fillMode: Image.PreserveAspectFit
-                        source: "/usr/share/" + appId + "/icons/paypal.svg"
+                        source: "/usr/share/" + Global.appId + "/icons/paypal.svg"
                     }
                     Label{
                         width: parent.width - parent.height - parent.spacing
@@ -233,7 +231,7 @@ Page {
                         width: parent.height * 0.8
                         height: width
                         fillMode: Image.PreserveAspectFit
-                        source: "/usr/share/" + appId + "/icons/liberpay.svg"
+                        source: "/usr/share/" + Global.appId + "/icons/liberpay.svg"
                     }
                     Label{
                         width: parent.width - parent.height - parent.spacing
