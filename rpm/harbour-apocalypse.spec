@@ -44,7 +44,7 @@ BuildRequires:  qt5-qttools-linguist
   Custom:
     DescriptionMD: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/master/README.md
     Repo: https://github.com/black-sheep-dev/harbour-apocalypse/
-  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/master/icons/harbour-apocalypse.svg
+  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-apocalypse/master/app/icons/harbour-apocalypse.svg
   Screenshots:
     - https://github.com/black-sheep-dev/harbour-apocalypse/raw/master/metadata/screenshot1.png
     - https://github.com/black-sheep-dev/harbour-apocalypse/raw/master/metadata/screenshot2.png
