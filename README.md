@@ -5,6 +5,7 @@ Never miss the apocalypse in Germany again!
 
 >![](app/icons/128x128/harbour-apocalypse.png)
 
+[![](https://github.com/black-sheep-dev/harbour-apocalypse/actions/workflows/main.yml/badge.svg)](https://github.com/black-sheep-dev/harbour-apocalypse/actions/workflows/main.yml)
 
 ## Current state of development
 
