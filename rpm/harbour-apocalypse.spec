@@ -11,7 +11,7 @@ Name:       harbour-apocalypse
 # Change the version and release strings in .pro file only!
 
 Summary:    Apocalypse
-Version:    0.4.2
+Version:    0.4.3
 Release:    1
 Group:      Qt/Qt
 License:    GPLv2
