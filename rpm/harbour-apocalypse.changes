@@ -1,5 +1,5 @@
 * Sat Feb 25 2023 Black Sheep <blacksheep@nubecula.org> 0.4.3-1
-- Fixed no message refresh on device autorestart
+- Fixed no message refresh on device restart
 - Show if device is offline on cover page
 
 * Tue Jan 17 2023 Black Sheep <blacksheep@nubecula.org> 0.4.2-1
