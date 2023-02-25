@@ -35,11 +35,9 @@ void ApiInterface::onRequestFinished()
     }
 
     if (reply->error()) {
-#ifdef QT_DEBUG
-        qDebug() << reply->errorString();
-#endif
+        qCritical() << reply->errorString();
+        emit requestFailed(reply->url().toString());
         reply->deleteLater();
-
         return;
     }
 

@@ -7,6 +7,7 @@
 #include <QHash>
 
 #include <keepalive/backgroundactivity.h>
+#include <connman-qt5/networkmanager.h>
 
 #include "apiinterface.h"
 #include "location.h"
@@ -26,6 +27,7 @@ class ServiceProvider : public QDBusAbstractAdaptor
     Q_PROPERTY(QString mapBoxApiKey READ mapBoxApiKey NOTIFY mapBoxApiKeyChanged)
     Q_PROPERTY(QString messages READ messages NOTIFY messagesChanged)
     Q_PROPERTY(bool notify READ notify WRITE setNotify NOTIFY notifyChanged)
+    Q_PROPERTY(bool offline READ offline NOTIFY offlineChanged)
     Q_PROPERTY(bool playSound READ playSound WRITE setPlaySound NOTIFY playSoundChanged)
     Q_PROPERTY(QString services READ services NOTIFY servicesChanged)
     Q_PROPERTY(int updateInterval READ updateInterval WRITE setUpdateInterval NOTIFY updateIntervalChanged)
@@ -56,6 +58,8 @@ public:
     bool notify() const;
     void setNotify(bool enabled);
 
+    bool offline() const;
+
     bool playSound() const;
     void setPlaySound(bool enabled);
 
@@ -75,6 +79,7 @@ signals:
     void mapBoxApiKeyChanged();
     void messagesChanged(const QString&);
     void notifyChanged(bool);
+    void offlineChanged();
     void playSoundChanged(bool);
     void activeServicesChanged();
     void servicesChanged();
@@ -91,11 +96,13 @@ public slots:
 
     // other
     void refresh();
+    void restartApiInterface();
     void saveSettings();
     void shutdown();
     void test();
 
 private slots:
+    void onRequestFailed(const QString &url);
     void parseMessages(const QString &url, const QJsonArray &msgs);
 
 private:
@@ -106,7 +113,7 @@ private:
     void readSettings();
     void writeSettings();
 
-    ApiInterface *m_api{new ApiInterface(this)};
+    ApiInterface *m_api{nullptr};
     QJsonArray m_localMessageBuffer;
     QJsonArray m_messageBuffer;
     QStringList m_requestQueue;
@@ -120,6 +127,8 @@ private:
 
     BackgroundActivity *m_backgroundJob{nullptr};
 
+    NetworkManager *m_nm{NetworkManager::instance()};
+
     // properties
     bool m_autoUpdate{false};
     bool m_gps{false};
@@ -128,6 +137,7 @@ private:
     int m_localSeverity{0};
     QString m_messages{"[]"};
     bool m_notify{true};
+    bool m_offline{true};
     bool m_playSound{false};
     int m_updateInterval{BackgroundActivity::FiveMinutes};
 };

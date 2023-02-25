@@ -11,6 +11,7 @@ ApplicationWindow
     property bool loading: false
     property int localSeverity: 0
     property var localMessages: []
+    property bool offline: true
 
 
     function updateLocalMessages() {
@@ -61,12 +62,17 @@ ApplicationWindow
         function notifyChanged(enabled) {
             console.log("Notify enabled: " + enabled)
         }
+        function offlineChanged() {
+            offline = getProperty("offline")
+        }
+
         function playSoundChanged(enabled) {
             console.log("Play sound enabled: " + enabled)
         }
 
         Component.onCompleted: {
             localSeverity = getProperty("localSeverity")
+            offline = getProperty("offline")
             updateLocalMessages()
         }
     }
@@ -93,4 +99,6 @@ ApplicationWindow
     initialPage: Component { OverviewPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
+    Component.onCompleted: dbusService.call("refresh", undefined)
 }

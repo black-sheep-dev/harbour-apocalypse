@@ -377,7 +377,7 @@
     </message>
     <message id="id-update-interval">
         <source>Update interval (minutes)</source>
-        <translation type="unfinished">Update Intervall (Minuten)</translation>
+        <translation>Update Intervall (Minuten)</translation>
     </message>
     <message id="id-play-sound">
         <source>Play notifaction sound</source>
@@ -386,6 +386,14 @@
     <message id="id-play-sound-desc">
         <source>When active the application will play a sound when new notification is available.</source>
         <translation>Wenn aktiviert wird ein Ton bei einer neuen Meldung abgespielt.</translation>
+    </message>
+    <message id="id-offline">
+        <source>Offline</source>
+        <translation>Offline</translation>
+    </message>
+    <message id="id-restart-service">
+        <source>Restart service</source>
+        <translation>Service neustarten</translation>
     </message>
 </context>
 <context>

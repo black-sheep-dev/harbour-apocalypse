@@ -8,7 +8,7 @@ QT = core gui network dbus positioning
 
 CONFIG += link_pkgconfig
 
-PKGCONFIG += nemonotifications-qt5 keepalive
+PKGCONFIG += nemonotifications-qt5 keepalive connman-qt5
 
 LIBS += -lz
 

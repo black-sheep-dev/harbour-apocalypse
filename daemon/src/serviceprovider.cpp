@@ -19,7 +19,16 @@ ServiceProvider::ServiceProvider(QObject *parent) :
     readServices();
     readSettings();
 
-    connect(m_api, &ApiInterface::messagesAvailable, this, &ServiceProvider::parseMessages);
+    restartApiInterface();
+
+    // check if network is available
+    connect(m_nm, &NetworkManager::connectedChanged, [this]() {
+        qDebug() << "Connected: " << m_nm->connected();
+        this->m_offline = !m_nm->connected();
+        emit this->offlineChanged();
+
+        if (m_nm->connected()) this->refresh();
+    });
 
     if (!m_autoUpdate) {
         refresh();
@@ -136,6 +145,11 @@ void ServiceProvider::setNotify(bool enabled)
     emit notifyChanged(m_notify);
 }
 
+bool ServiceProvider::offline() const
+{
+    return m_offline;
+}
+
 bool ServiceProvider::playSound() const
 {
     return m_playSound;
@@ -248,7 +262,7 @@ bool ServiceProvider::enableService(const QString &id, bool enable)
 
 void ServiceProvider::refresh()
 {
-    if (m_loading) {
+    if (!m_nm->connected()) {
         return;
     }
 
@@ -259,14 +273,31 @@ void ServiceProvider::refresh()
     // clear
     m_requestQueue.clear();
     m_localSeverity = 0;
+    m_localMessageBuffer = QJsonArray();
+    m_messageBuffer = QJsonArray();
 
     // send requests
     for (const auto &service : m_services) {
         if (!service.active) continue;
 
+
         m_requestQueue.append(service.url);
         m_api->fetch(service.url);
     }
+}
+
+void ServiceProvider::restartApiInterface()
+{
+    m_loading = false;
+    m_requestQueue.clear();
+
+    if (m_api != nullptr) {
+        delete m_api;
+    }
+
+    m_api = new ApiInterface(this);
+    connect(m_api, &ApiInterface::messagesAvailable, this, &ServiceProvider::parseMessages);
+    connect(m_api, &ApiInterface::requestFailed, this, &ServiceProvider::onRequestFailed);
 }
 
 void ServiceProvider::saveSettings()
@@ -282,6 +313,16 @@ void ServiceProvider::shutdown()
 void ServiceProvider::test()
 {
     sendNotification(QJsonObject());
+}
+
+void ServiceProvider::onRequestFailed(const QString &url)
+{
+    m_requestQueue.removeAll(url);
+
+    if (m_requestQueue.isEmpty()) {
+        m_loading = false;
+        emit loadingChanged();
+    }
 }
 
 void ServiceProvider::parseMessages(const QString &url, const QJsonArray &msgs)
@@ -456,9 +497,8 @@ void ServiceProvider::parseMessages(const QString &url, const QJsonArray &msgs)
         m_messageBuffer.append(msg);
     }
 
-
     // apply if all requests are finished
-    if (!m_loading) {
+    if (m_requestQueue.isEmpty()) {
         m_localMessages = QJsonDocument(m_localMessageBuffer).toJson(QJsonDocument::Compact);
         emit localMessagesChanged(m_localMessages);
 

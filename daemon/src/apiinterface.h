@@ -15,6 +15,7 @@ public:
     explicit ApiInterface(QObject *parent = nullptr);
 
 signals:
+    void requestFailed(const QString &url);
     void messagesAvailable(const QString &url, const QJsonArray &msg);
 
 public slots:

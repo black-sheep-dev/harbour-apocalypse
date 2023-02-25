@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(Qt5Location)
+BuildRequires:  pkgconfig(connman-qt5)
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qttools-linguist
 

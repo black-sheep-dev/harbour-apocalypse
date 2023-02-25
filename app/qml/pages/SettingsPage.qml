@@ -7,6 +7,14 @@ Page {
     allowedOrientations: Orientation.All
 
     SilicaListView {
+        PullDownMenu {
+            MenuItem {
+                //% "Restart service"
+                text: qsTrId("id-restart-service")
+                onClicked: dbusService.call("enableService")
+            }
+        }
+
         id: listView
         model: ListModel {
             id: listModel

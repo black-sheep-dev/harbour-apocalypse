@@ -27,18 +27,15 @@ CoverBackground {
     }
 
     Rectangle {
+        visible: !offline
         id: background
         anchors.fill: parent;
-
         opacity: localSeverity === 0 ? 0.0 : 0.6
-
         color: helper.getSeverityColor(localSeverity)
     }
 
-
     Label {
         id: coverTitle
-
         anchors.horizontalCenter: parent.horizontalCenter
         y: Theme.paddingLarge
 
@@ -46,6 +43,31 @@ CoverBackground {
         text: qsTrId("id-app-name")
         color: Theme.highlightColor
         font.pixelSize: Theme.fontSizeLarge
+    }
+
+    Image {
+        visible: offline
+        id: offlineIcon
+        anchors.centerIn: parent
+        smooth: true
+        width: parent.width * 0.75
+        height: width
+        sourceSize {
+            width: parent.width * 0.75
+            height: width
+        }
+        source: "/usr/share/harbour-apocalypse/icons/offline.svg"
+    }
+
+    Label {
+        visible: offline
+        anchors {
+            top: offlineIcon.bottom
+            topMargin: -Theme.paddingMedium
+            horizontalCenter: offlineIcon.horizontalCenter
+        }
+        //% "Offline"
+        text: qsTrId("id-offline")
     }
 
     Item {
@@ -56,8 +78,8 @@ CoverBackground {
     }
 
     SilicaListView {
+        visible: !offline
         id: listView
-
         anchors.top: spacer.bottom
         anchors.bottom: parent.bottom
         width: parent.width

@@ -387,5 +387,13 @@
         <source>When active the application will play a sound when new notification is available.</source>
         <translation>When active the application will play a sound when new notification is available.</translation>
     </message>
+    <message id="id-offline">
+        <source>Offline</source>
+        <translation>Offline</translation>
+    </message>
+    <message id="id-restart-service">
+        <source>Restart service</source>
+        <translation>Restart Service</translation>
+    </message>
 </context>
 </TS>
